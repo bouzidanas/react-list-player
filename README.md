@@ -1,30 +1,54 @@
-# React + TypeScript + Vite
+>[!WARNING]
+>This package is still in development and is not yet ready for production use.
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+# react-playlist-player
 
-Currently, two official plugins are available:
+A flexible playlist react component
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Description
+This package centers around the ListPlayer component which is a react component that provides a user interface to control playback of a list of media items. 
 
-## Expanding the ESLint configuration
+ListPlayer is fully responsive, and will, by default, adapt to the size of its container element. It also comes with several built-in sizes that the component can "snap" to or smoothly switched between. 
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+The main reason behind not including some form of media player is to avoid limiting the use cases to those attached to specific media types or sources. A playlist can be a list of videos, a list of songs, a list of sound clips, or a mix of everything, for example. 
 
-- Configure the top-level `parserOptions` property like this:
+Another reason is that developers may prefer to use their own media player component, or may want to use a different media player component for different media types.
 
-```js
+ListPlayer also has a headless mode where only the interactive playlist rendered; the included playback controls (play/pause, prev/next, mute/unmute) are removed. This allows developers to use their own separate playback controls. This allows for more flexibility in the design of the user interface. Many sites for example, have a fixed playback control bar at the bottom of the page, and a separate playlist component elsewhere on the page.
+
+## Installation
+
+This package is not yet published to npm. You can install it directly from GitHub using the following command:
+
+```bash
+npm install bouzidanas/react-playlist-player
+```
+>[!NOTE]
+>I am currently in the process of transitioning from using tailwindcss to pure css. The current version of the package uses tailwindcss. To get the components to appear properly, you need to have tailwind installed in the project where you will be using Lyr-ix components. See [tailwindCSS documentation](https://tailwindcss.com/docs/installation) for installation instructions. 
+>
+>After installing tailwindCSS, you need to add the following string to the content array in your projects `tailwind.config.js` file:
+>```js
+"./node_modules/lyr-ix/**/*.{js,ts,jsx,tsx}"
+```
+>This will allow tailwind to scan the Lyr-ix components for classes that you can use in your project. Your `tailwind.config.js` file should look something like this:
+>
+>```diff
+/** @type {import('tailwindcss').Config} */
 export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
+  content: [
+    "./index.html",
+    "./src/**/*.{js,ts,jsx,tsx}",
++    "./node_modules/react-playlist-player/**/*.{js,ts,jsx,tsx}",
+  ],
+  theme: {
+    extend: {},
   },
+  plugins: [] ,
 }
 ```
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+
+
+## License
+
+[![Static Badge](https://img.shields.io/badge/License-MIT-415a77?style=for-the-badge)](https://github.com/bouzidanas/react-playlist-player/blob/master/LICENSE)
