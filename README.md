@@ -1,6 +1,8 @@
 >[!WARNING]
 >This package is still in development and is not yet ready for production use.
+>
 <center>[![Static Badge](https://img.shields.io/badge/Demo-415a77?style=for-the-badge)](https://react-playlist-player.vercel.app/)<center>
+  
 ![react-playlist-player-demo](https://github.com/bouzidanas/react-playlist-player/assets/25779130/8616dbe1-656f-416a-aa03-a5703d5dbcab)
 
 # <img src='https://raw.githubusercontent.com/bouzidanas/react-playlist-player/master/public/logo.svg' width='22'> react-playlist-player
