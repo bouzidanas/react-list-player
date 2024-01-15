@@ -1,7 +1,6 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { ListPlayer } from './ListPlayer'
 import { ListPlayerContext } from './ListPlayerContext';
-import './App.css'
 
 function App() {
   const [selectedTrack, setSelectedTrack] = useState(-1);
@@ -66,10 +65,14 @@ function App() {
     
     const timer9 = setTimeout(() => {
       setForceSmallWidth(false);
+      setIsPlaying(true);
+      setIsMuted(true);
       setExplanitoryText("This means that you can combine it with any media player you like, such as react-player.");
     }, 39*durationIncrement);
 
     const timer10 = setTimeout(() => {
+      setIsPlaying(false);
+      setIsMuted(false);
       setExplanitoryText("Since ListPlayer accepts a child component, you can use it to wrap your media player");
     }, 45*durationIncrement);
 

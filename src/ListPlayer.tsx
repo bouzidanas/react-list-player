@@ -3,6 +3,8 @@ import { HiMiniPlay, HiMiniPause, HiPlayCircle, HiMiniSpeakerWave, HiMiniSpeaker
 import { RiSkipForwardMiniFill, RiSkipBackMiniFill } from "react-icons/ri";
 import { ListPlayerContext } from "./ListPlayerContext";
 
+import './App.css'
+
 const testListInfo: listInfo = {
     type: 'playlist',
     name: 'Liked Songs',

@@ -45,11 +45,24 @@ export default {
   theme: {
     extend: {},
   },
-  plugins: [] ,
+  plugins: [],
 }
 ```
 
+## Usage
 
+```tsx
+import { useEffect, useRef, useState } from 'react';
+import { ListPlayer } from './ListPlayer'
+import { ListPlayerContext } from './ListPlayerContext';
+import './App.css'
+
+function App() {
+  const [selectedTrack, setSelectedTrack] = useState(-1);
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [isMuted, setIsMuted] = useState(false);
+
+```
 
 ## License
 
