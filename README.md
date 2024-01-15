@@ -26,13 +26,13 @@ npm install bouzidanas/react-playlist-player
 >[!NOTE]
 >I am currently in the process of transitioning from using tailwindcss to pure css. 
 
-The current version of the package uses tailwindcss. To get the components to appear properly, you need to have tailwind installed in the project where you will be using Lyr-ix components. See [tailwindCSS documentation](https://tailwindcss.com/docs/installation) for installation instructions. 
+The current version of the package uses tailwindcss. To get the components to appear properly, you need to have tailwind installed in the project where you will be using react-playlist-player components. See [tailwindCSS documentation](https://tailwindcss.com/docs/installation) for installation instructions. 
 
 After installing tailwindCSS, you need to add the following string to the content array in your projects `tailwind.config.js` file:
 ```js
-"./node_modules/lyr-ix/**/*.{js,ts,jsx,tsx}"
+"./node_modules/react-playlist-player/**/*.{js,ts,jsx,tsx}"
 ```
-This will allow tailwind to scan the Lyr-ix components for classes that you can use in your project. Your `tailwind.config.js` file should look something like this:
+This will allow tailwind to scan the react-playlist-player components for classes that you can use in your project. Your `tailwind.config.js` file should look something like this:
 
 ```diff
 /** @type {import('tailwindcss').Config} */
