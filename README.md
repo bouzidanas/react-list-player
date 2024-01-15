@@ -18,7 +18,7 @@ The main reason behind not including some form of media player is to avoid limit
 
 Another reason is that developers may prefer to use their own media player component, or may want to use a different media player component for different media types.
 
-ListPlayer also has a headless mode where only the interactive playlist rendered; the included playback controls (play/pause, prev/next, mute/unmute) are removed. This allows developers to use their own separate playback controls. This allows for more flexibility in the design of the user interface. Many sites for example, have a fixed playback control bar at the bottom of the page, and a separate playlist component elsewhere on the page.
+ListPlayer also has a headless mode where only the interactive playlist is presented; the included playback controls (play/pause, prev/next, mute/unmute) are removed. This allows developers to use their own separate playback controls. This allows for more flexibility in the design of the user interface. Many sites for example, have a fixed playback control bar at the bottom of the page, and a separate playlist component elsewhere on the page.
 
 ## Installation
 
