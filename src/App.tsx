@@ -24,7 +24,7 @@ function App() {
     }, 7*durationIncrement);
 
     const timer2 = setTimeout(() => {
-      setSelectedTrack(3);
+      setSelectedTrack(9);
     }, 8*durationIncrement);
 
     const timer3 = setTimeout(() => {

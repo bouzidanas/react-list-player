@@ -533,6 +533,8 @@ export const ListPlayer = ({ tracks = testTracks, listInfo = testListInfo, prevB
 
     const { selectedTrack, setSelectedTrack, isPlaying, setIsPlaying, isMuted, setIsMuted } = useContext(ListPlayerContext);
 
+    const listBodyRef = useRef<HTMLDivElement>(null);
+
     const allowPrevious = useRef(true);
 
     console.log("rendering");
@@ -574,9 +576,15 @@ export const ListPlayer = ({ tracks = testTracks, listInfo = testListInfo, prevB
         allowPrevious.current || !isPlaying ? setSelectedTrack((selectedTrack - 1 + tracks.length) % tracks.length) : play(false)
     }
 
+    const scrollTrackIntoView = (index: number) => {
+        const track = listBodyRef.current?.children[index] as HTMLDivElement;
+        track.scrollIntoView({ behavior: "smooth", block: "center" });
+    }
+
     useEffect(() => {
         if (selectedTrack === -1) return;
         // console.log("playing track after change in selectedTrack");
+        !(playerMode === "tinyplayer" || playerMode === "miniplayer") && scrollTrackIntoView(selectedTrack);
         play(false);
     }, [selectedTrack]);
 
@@ -604,7 +612,7 @@ export const ListPlayer = ({ tracks = testTracks, listInfo = testListInfo, prevB
                                 {children}
                             </Header>
                 }
-                <div className="list-body">
+                <div ref={listBodyRef} className="list-body">
                     {
                         testTracks.map((track, index) => <Track key={"track-" + index} track={track} trackNumber={index + 1} onClick={() => handleTrackClick(index)} selected={index === selectedTrack} playIcon={!isPlaying || index !== selectedTrack} />)
                     }

@@ -51,18 +51,32 @@ export default {
 
 ## Usage
 
+Below is a basic skeleton of how to use the ListPlayer component. 
+
 ```tsx
-import { useEffect, useRef, useState } from 'react';
+import { useState } from 'react';
 import { ListPlayer } from './ListPlayer'
 import { ListPlayerContext } from './ListPlayerContext';
-import './App.css'
 
 function App() {
-  const [selectedTrack, setSelectedTrack] = useState(-1);
-  const [isPlaying, setIsPlaying] = useState(false);
-  const [isMuted, setIsMuted] = useState(false);
+  const [selectedTrack, setSelectedTrack] = useState(-1);   // -1 means no track is selected
+  const [isPlaying, setIsPlaying] = useState(false);        // play/pause
+  const [isMuted, setIsMuted] = useState(false);            // mute/unmute
+
+  return (
+    <ListPlayerContext.Provider value={{selectedTrack, setSelectedTrack, isPlaying, setIsPlaying, isMuted, setIsMuted}}>
+      <div className='container-for-sizing-player'>
+        <ListPlayer playerMode={playerMode} noControls={replaceHeader} noHeader={headLess}>
+          <MyCustomHeader /> 
+        </ListPlayer>
+      </div>
+    </ListPlayerContext.Provider>
+  )
+}
 
 ```
+The `<ListPlayer/>` component will respond to changes in the three shared context variables: `selectedTrack`, `isPlaying`, and `isMuted`. If the value of selectedTrack is -1, this means no track is selected. This is usually the case when the playlist is first rendered. If you change the value of selectedTrack to a valid index, the playlist will automatically scroll to that track and play it. 
+
 
 ## License
 
