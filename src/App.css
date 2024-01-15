@@ -48,6 +48,8 @@
   margin-bottom: var(--lp-pad-1);
   margin-right: var(--lp-pad-1);
   margin-left: var(--lp-pad-2);
+  container-type: inline-size;
+  container-name: list;
 }
 
 .list-body:first-child {
@@ -116,17 +118,22 @@ div.track-number .play-icon {
   justify-content: space-between;
   align-items: center;
   flex-shrink: 1;
+  gap: 2rem;
   overflow: hidden;
   -webkit-mask-image: linear-gradient(to right, rgba(0, 0, 0, 1), rgba(0, 0, 0, 1) 98%, rgba(0, 0, 0, 0) 101%);
   mask-image: linear-gradient(to right, rgba(0, 0, 0, 1), rgba(0, 0, 0, 1) 98%, rgba(0, 0, 0, 0) 101%);
+  container-name: info;
+  container-type: inline-size;
 }
+
 .main-info-cont {
   display: flex;
+  flex: 3 0 0%;
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
   width: 100%;
-  min-width: 32%;
+  min-width: 22vi;
   overflow: hidden;
   -webkit-mask-image: linear-gradient(to right, rgba(0, 0, 0, 1), rgba(0, 0, 0, 1) 96%, rgba(0, 0, 0, 0));
   mask-image: linear-gradient(to right, rgba(0, 0, 0, 1), rgba(0, 0, 0, 1) 96%, rgba(0, 0, 0, 0));
@@ -145,10 +152,9 @@ div.meta-cont {
 
 div.lg-meta-cont {
   display: none;
-  flex: 1 0 0%;
+  flex: 2 0 0%;
   align-items: center;
   justify-content: flex-start;
-  padding-left: var(--lp-gap-var-1);
   font-size: medium;
   opacity: var(--lp-text-op-2);
 }
@@ -158,26 +164,44 @@ div.lg-meta-cont > div {
 }
 
 div.lg-meta-cont > div.meta-artist {
-  width: 20vw;
+  width: 18vi;
   overflow: hidden;
-  flex-shrink: 0;
-  margin-right: var(--lp-gap-var-1);
   -webkit-mask-image: linear-gradient(to right, rgba(0, 0, 0, 1), rgba(0, 0, 0, 1) 96%, rgba(0, 0, 0, 0) 101%);
   mask-image: linear-gradient(to right, rgba(0, 0, 0, 1), rgba(0, 0, 0, 1) 96%, rgba(0, 0, 0, 0) 101%);
 }
 
 div.lg-meta-cont > div.meta-album {
-  width: 32vw;
-  min-width: 20vw;
+  width: 18vi;
   overflow: hidden;
+}
+
+/* THIS IS IMPORTANT!!!
+This allows the list columns (title, artist, and album) 
+to adjust width according to parent container width.
+A fixed width is necessary to force flex container not to 
+move the left edges of the individual 'cells'. Percent 
+doesnt work but relative units do. However, we need the
+relative units to change according to parent container size
+instead of viewport. Fallbacks are implemented above this 
+block */
+@container info (min-width: 20px) {
+  .main-info-cont {
+    min-width: 28cqw!important;
+  }
+  div.lg-meta-cont > div.meta-artist {
+    width: 26cqw;
+  }
+
+  div.lg-meta-cont > div.meta-album {
+    width: 26cqw;
+  }
 }
 
 div.duration-cont {
   display: flex;
   justify-content: flex-end;
-  width: 2.8rem;
+  width: 5.3rem;
   margin-right: 0.6rem;
-  margin-left: var(--lp-gap-var-1);
 }
 
 div.meta-artist, div.meta-album, div.meta-cont, div.title-cont {
@@ -305,12 +329,13 @@ span.explicit {
 }
 /* ---------------------------- */
 
-@media (min-width: 900px){
+
+@container list (min-width: 700px){
   div.lg-meta-cont {
       display: flex;
   }
-  .meta-cont {
-      display: none;
+  div.meta-cont {
+      display: none!important;
   }
 }
 

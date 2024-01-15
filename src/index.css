@@ -5,7 +5,8 @@
 :root {
   --lp-gap-1: 0.25rem;
   --lp-gap-2: 0.5rem;
-  --lp-gap-var-1: 3.3vw;
+  --lp-gap-var-1: 3.5%;
+  --lp-gap-var-2: 6%;
   --lp-pad-1: 0.3rem;
   --lp-pad-2: 0.6rem;
   --lp-text-op-2: 0.6;
@@ -31,7 +32,7 @@
   height: 100vh;
   width: 100%;
   background-color: #b5838d;
-  padding: 4rem;
+  padding: 2rem 4rem;
 }
 
 body {

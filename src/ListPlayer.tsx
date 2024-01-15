@@ -47,7 +47,7 @@ const testTracks: track[] = [
             },
             {
                 type: 'text',
-                content: 'Wayne Murray',
+                content: 'Wayne Murray and company',
                 className: 'artist',
                 link: 'https://music.youtube.com/channel/UCkZXltuX3Rta9OiD-O505xg'
             }
@@ -77,7 +77,7 @@ const testTracks: track[] = [
         artist: [
             {
                 type: 'text',
-                content: 'Tennis',
+                content: 'Duran Duran',
                 className: 'artist'
             }
         ],
@@ -438,10 +438,10 @@ const ListInfoCard = ({ track, info }: { track: track, info: listInfo }) => {
 const Header = ({ info = placeholderListInfo, track, muted = false, playing = false, noControls = false, snapTo = "large", nextCallback, prevCallback, playCallback, muteCallback, children }: { info: listInfo, track: track, muted?: boolean, playing?: boolean, noControls?: boolean, snapTo?: string, nextCallback?: () => void, prevCallback?: () => void, playCallback?: (play: boolean) => void, muteCallback?: (mute: boolean) => void, children?: React.ReactNode }) => {
     const height = snapTo === "tiny" ? "92px" : (snapTo === "small" ? "11.65rem" : (snapTo === "medium" ? "16rem" : (snapTo === "large" ? "21.35rem" : snapTo)));
     return (
-        <div className={"list-header shadow-lg relative w-full min-h-[5.75rem] overflow-hidden " + "lt-" + snapTo} style={{ maxHeight: height, height: height }}>
+        <div className="list-header shadow-lg relative w-full min-h-[5.75rem] overflow-hidden " style={{ maxHeight: height, height: height }}>
             {
                 children 
-                ?   <div className="lh-children-cont absolute w-full h-full m-[0.64rem]">
+                ?   <div className="lh-children-cont absolute w-full h-full">
                         {children}
                     </div>
                 :   <div className="lh-children-cont lh-listinfocard-cont absolute w-full h-full p-[0.64rem]">
@@ -511,6 +511,8 @@ const Track = ({ track, trackNumber, selected = false, playIcon = true, onClick 
                     <div className="meta-artist">
                         <Text textArray={track.artist} />
                     </div>
+                </div>
+                <div className="lg-meta-cont">
                     <div className="meta-album">
                         <Text textArray={track.album} />
                     </div>
@@ -588,17 +590,17 @@ export const ListPlayer = ({ tracks = testTracks, listInfo = testListInfo, prevB
         }
     }, [timerTriggerFlag, prevBufferTime]);
 
-    const classNamePr = "list-player" + (playerMode === " tinyplayer" || playerMode === " miniplayer") ? playerMode : "";
+    // const classNamePr = "list-player" + (playerMode === " tinyplayer" || playerMode === " miniplayer") ? playerMode : "";
 
     return (
         <>
             <div className="list-player" style={playerMode === "tinyplayer" ? {maxHeight: "92px", maxWidth: "315px"} : (playerMode === "miniplayer" ? {maxHeight: "92px", maxWidth: "100%"} : {maxHeight: "100%", maxWidth: "100%"}) }>
                 {
                     noHeader
-                        ? null
-                        : <Header info={listInfo} track={tracks[selectedTrack]} snapTo={playerMode === "tiny" ? "tiny" : (playerMode === "small" ? "small" : (playerMode === "medium" ? "medium" : (playerMode === "large" ? "large" : (playerMode === undefined ? undefined : playerMode)))) } noControls={noControls} muted={isMuted} playing={isPlaying} muteCallback={mute} playCallback={playPause} nextCallback={() => setSelectedTrack((selectedTrack + 1) % tracks.length)} prevCallback={() => handlePreviousClick()}>
-                            {children}
-                        </Header>
+                        ?   null
+                        :   <Header info={listInfo} track={tracks[selectedTrack]} snapTo={playerMode === "tiny" ? "tiny" : (playerMode === "small" ? "small" : (playerMode === "medium" ? "medium" : (playerMode === "large" ? "large" : (playerMode === undefined ? undefined : playerMode)))) } noControls={noControls} muted={isMuted} playing={isPlaying} muteCallback={mute} playCallback={playPause} nextCallback={() => setSelectedTrack((selectedTrack + 1) % tracks.length)} prevCallback={() => handlePreviousClick()}>
+                                {children}
+                            </Header>
                 }
                 <div className="list-body">
                     {
