@@ -1,7 +1,7 @@
 >[!WARNING]
 >This package is still in development and is not yet ready for production use.
 
-# ![logo](https://raw.githubusercontent.com/bouzidanas/react-playlist-player/master/public/logo.svg) react-playlist-player
+# <img src='https://raw.githubusercontent.com/bouzidanas/react-playlist-player/master/public/logo.svg' width='25'> react-playlist-player
 
 A flexible playlist react component
 
