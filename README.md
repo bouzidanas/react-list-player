@@ -2,10 +2,8 @@
 >This package is still in development and is not yet ready for production use.
 
 <p align="center">
-  <img width="460" height="300" src="[https://picsum.photos/460/300](https://github.com/bouzidanas/react-playlist-player/assets/25779130/8616dbe1-656f-416a-aa03-a5703d5dbcab)">
+  <img width="460" height="300" src="https://github.com/bouzidanas/react-playlist-player/assets/25779130/8616dbe1-656f-416a-aa03-a5703d5dbcab"/>
 </p>
-
-![react-playlist-player-demo]()
 
 # <img src='https://raw.githubusercontent.com/bouzidanas/react-playlist-player/master/public/logo.svg' width='22'> react-playlist-player [![Static Badge](https://img.shields.io/badge/Demo-415a77?style=for-the-badge)](https://react-playlist-player.vercel.app/)
 
