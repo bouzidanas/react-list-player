@@ -58,6 +58,12 @@ import { useState } from 'react';
 import { ListPlayer } from './ListPlayer'
 import { ListPlayerContext } from './ListPlayerContext';
 
+// The following test object has type ListInfo which is defined in the ListPlayer file
+const testListInfo = {}; // object needed to populate the playlist header with
+
+// The following test array has type Track which is defined in the ListPlayer file
+const testTracks = [...]; // array of track objects needed populate the playlist rows with
+
 function App() {
   const [selectedTrack, setSelectedTrack] = useState(-1);   // -1 means no track is selected
   const [isPlaying, setIsPlaying] = useState(false);        // play/pause
@@ -66,17 +72,144 @@ function App() {
   return (
     <ListPlayerContext.Provider value={{selectedTrack, setSelectedTrack, isPlaying, setIsPlaying, isMuted, setIsMuted}}>
       <div className='container-for-sizing-player'>
-        <ListPlayer playerMode={playerMode} noControls={replaceHeader} noHeader={headLess}>
-          <MyCustomHeader /> 
-        </ListPlayer>
+        <ListPlayer 
+          tracks={testTracks} 
+          listInfo={testListInfo}
+        />
       </div>
+    </ListPlayerContext.Provider>
+  )
+}
+```
+In the example above, `<ListPlayer>` is wrapped in a `<ListPlayerContext.Provider>` component. This is necessary for the `<ListPlayer>` component to work properly. The `<ListPlayer>` component is designed to share context with components external to it. This allows the developer to synchronize the state of the `<ListPlayer>` component with other components such as a media player component. In general, it allows the application to control and respond to changes in the `<ListPlayer>` component and vice versa.
+
+The `<ListPlayer>` component responds to changes in the three shared context variables: `selectedTrack`, `isPlaying`, and `isMuted`. If the value of selectedTrack is `-1`, this means no track is selected. This is usually the case when the playlist is first rendered. If you change the value of selectedTrack to a valid index, the playlist will automatically scroll to that track and change the `isPlaying` state. Thus, the `isPlaying` state variable can be used to trigger pausing and playing of the media item. 
+
+
+### Example: Responding to ListPlayer via changes in shared context variables
+
+```tsx
+import { useState } from 'react';
+import { ListPlayer } from './ListPlayer'
+import { ListPlayerContext } from './ListPlayerContext';
+
+const testListInfo = {/*...*/};
+
+const testTracks = [/*...*/]; 
+
+function App() {
+  const [selectedTrack, setSelectedTrack] = useState(-1);   // -1 means no track is selected
+  const [isPlaying, setIsPlaying] = useState(false);        // play/pause
+  const [isMuted, setIsMuted] = useState(false);            // mute/unmute
+
+  const audioRef = useRef<HTMLAudioElement>(null);
+
+  const audioSrcs = ["/audio/Sos.mp3", "/audio/Fields of Blue.mp3", "/audio/Forbidden Doors.mp3", "/audio/Show Me How.mp3", "/audio/I Dont Know You.mp3"];
+
+  // The following handler is needed only for the case where the
+  // ListPlayer is requesting the current track to be restarted
+  const handleOnPlay = (index:number, resume:boolean) => {
+    if(index === selectedTrack && !resume) {
+      audioRef.current?.load();
+      audioRef.current?.play();
+    }
+  }
+
+  useEffect(() => {
+    if(audioRef.current) {
+      if(isPlaying) {
+        audioRef.current?.play();
+      } else {
+        audioRef.current?.pause();
+      }
+    }
+  }, [isPlaying, selectedTrack]);
+
+  return (
+    <ListPlayerContext.Provider value={{selectedTrack, setSelectedTrack, isPlaying, setIsPlaying, isMuted, setIsMuted}}>
+      <div className='container-for-sizing-player'>
+        <ListPlayer  
+          tracks={testTracks} 
+          listInfo={testListInfo} 
+          playCallback={handleOnPlay} 
+        />
+      </div>
+      <audio 
+        ref={audioRef} 
+        src={audioSrcs[selectedTrack]}
+        muted={isMuted} 
+        onEnded={() => {setSelectedTrack(selectedTrack + 1)}}
+      />
     </ListPlayerContext.Provider>
   )
 }
 
 ```
-The `<ListPlayer/>` component will respond to changes in the three shared context variables: `selectedTrack`, `isPlaying`, and `isMuted`. If the value of selectedTrack is -1, this means no track is selected. This is usually the case when the playlist is first rendered. If you change the value of selectedTrack to a valid index, the playlist will automatically scroll to that track and play it. 
 
+Alternatively, if `<ListPlayer>` is given a `playCallback` function, it will call that function with the index of the selected track and a flag indicating whether to resume playback or start playback from the beginning. You can also give `<ListPlayer>` a `pauseCallback` function that will be called when playback should be paused. Finally, there is also a `muteCallback` function that is called when the mute/unmute button is clicked.
+
+### Example: Responding to ListPlayer via callbacks
+
+```tsx
+import { useState } from 'react';
+import { ListPlayer } from './ListPlayer'
+import { ListPlayerContext } from './ListPlayerContext';
+
+const testListInfo = {/*...*/};
+
+const testTracks = [/*...*/]; 
+
+function App() {
+  const [selectedTrack, setSelectedTrack] = useState(-1);   // -1 means no track is selected
+  const [isPlaying, setIsPlaying] = useState(false);        // play/pause
+  const [isMuted, setIsMuted] = useState(false);            // mute/unmute
+
+  const audioRef = useRef<HTMLAudioElement>(null);
+
+  const audioSrcs = ["/audio/Sos.mp3", "/audio/Fields of Blue.mp3", "/audio/Forbidden Doors.mp3", "/audio/Show Me How.mp3", "/audio/I Dont Know You.mp3"];
+
+  const handleOnPlay = (index:number, resume:boolean) => {
+    if(index === selectedTrack && !resume) {
+      audioRef.current?.load();
+      audioRef.current?.play();
+    } else {
+      audioRef.current?.play();
+    }
+  }
+
+  const handleOnPause = () => {
+    audioRef.current?.pause();
+  }
+
+  return (
+    <ListPlayerContext.Provider value={{selectedTrack, setSelectedTrack, isPlaying, setIsPlaying, isMuted, setIsMuted}}>
+      <div className='container-for-sizing-player'>
+        <ListPlayer  
+          tracks={testTracks} 
+          listInfo={testListInfo} 
+          playCallback={handleOnPlay} 
+          pauseCallback={handleOnPause}
+        />
+      </div>
+      <audio 
+        ref={audioRef} 
+        src={audioSrcs[selectedTrack]}
+        muted={isMuted} 
+        onEnded={() => {setSelectedTrack(selectedTrack + 1)}}
+      />
+    </ListPlayerContext.Provider>
+  )
+}
+
+```
+
+The current recommended approach is to have the parent app respond to the ListPlayer using the callbacks and to use the shared state variables to control the ListPlayer. In regards to the latter, just remember that when you change any of the state variables at the top level, the ListPlayer will respond to reflect those changes. However, the ListPlayer will not in turn call the callbacks (since that would be redundant and also because the "command" didnt come directly from the user interacting with ListPlayer elements...like clicking the play button). So you have to directly perform the actions that the callbacks would have performed (if that is desired behavior).
+
+An optional feature of `<ListPlayer>` is the ability to replace the default header with a custom header. This is done by passing a component as a child of `<ListPlayer>`. The component will be rendered in place of the default header. Note that you can embed your media player component in your custom header component although it is not necessary.
+
+Another optional feature is the ability to remove the playback controls from the header. This is done by passing the `noControls` prop to `<ListPlayer>`. This is useful if you want to use your own playback controls. 
+
+Finally, there is a headless mode where only the playlist is rendered. This is done by passing the `noHeader` prop to `<ListPlayer>`. This is useful if you want to keep the playback controls in a separate location from the playlist.
 
 ## License
 

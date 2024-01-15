@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { ListPlayer } from './ListPlayer'
 import { ListPlayerContext } from './ListPlayerContext';
 
@@ -6,13 +6,29 @@ function App() {
   const [selectedTrack, setSelectedTrack] = useState(-1);
   const [isPlaying, setIsPlaying] = useState(false);
   const [isMuted, setIsMuted] = useState(false);
-  const [explanitoryText, setExplanitoryText] = useState("React List Player");
+  const [explanitoryText, setExplanitoryText] = useState("react-playlist-player");
   const [playerMode, setPlayerMode] = useState("large");
   const [forceSmallWidth, setForceSmallWidth] = useState(false);
   const [replaceHeader, setReplaceHeader] = useState(false);
   const [headLess, setHeadLess] = useState(false);
 
+  const audioRef = useRef<HTMLAudioElement>(null);
+
   const durationIncrement = 1000;
+  const audioSrcs = ["/audio/Sos.mp3", "/audio/Fields of Blue.mp3", "/audio/Forbidden Doors.mp3", "/audio/Show Me How.mp3", "/audio/I Dont Know You.mp3"];
+
+  const handleOnPlay = (index:number, resume:boolean) => {
+    if(index === selectedTrack && !resume) {
+      audioRef.current?.load();
+      audioRef.current?.play();
+    } else {
+      audioRef.current?.play();
+    }
+  }
+
+  const handleOnPause = () => {
+    audioRef.current?.pause();
+  }
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -33,6 +49,7 @@ function App() {
 
     const timer4 = setTimeout(() => {
       setIsPlaying(false);
+      audioRef.current?.pause();
     }, 13*durationIncrement);
 
     const timer5 = setTimeout(() => {
@@ -66,12 +83,14 @@ function App() {
     const timer9 = setTimeout(() => {
       setForceSmallWidth(false);
       setIsPlaying(true);
+      audioRef.current?.play();
       setIsMuted(true);
       setExplanitoryText("This means that you can combine it with any media player you like, such as react-player.");
     }, 39*durationIncrement);
 
     const timer10 = setTimeout(() => {
       setIsPlaying(false);
+      audioRef.current?.pause();
       setIsMuted(false);
       setExplanitoryText("Since ListPlayer accepts a child component, you can use it to wrap your media player");
     }, 45*durationIncrement);
@@ -106,7 +125,7 @@ function App() {
     }, 78*durationIncrement);
 
     const timer18 = setTimeout(() => {
-      setExplanitoryText("React List Player");
+      setExplanitoryText("react-playlist-player");
       setHeadLess(false);
     }, 82*durationIncrement);
 
@@ -143,7 +162,7 @@ function App() {
           {explanitoryText}
         </div>
         <div className='w-full h-[70%] flex justify-center items-start px-[22rem] transition-all duration-500 ease-in-out' style={forceSmallWidth ? {paddingLeft: "32rem", paddingRight: "32rem"} : undefined}>
-          <ListPlayer playerMode={playerMode} noControls={replaceHeader} noHeader={headLess}>
+          <ListPlayer playerMode={playerMode} noControls={replaceHeader} noHeader={headLess} playCallback={handleOnPlay} pauseCallback={handleOnPause}>
             {
               replaceHeader 
               ? <div className="absolute w-full h-full flex justify-center items-center text-4xl text-center p-12" style={{animation: "fadeIn 1s ease-in-out", background: "repeating-linear-gradient( 45deg, #22222255, #22222255 10px, #22222200 10px, #22222200 20px)"}}>
@@ -154,6 +173,11 @@ function App() {
           </ListPlayer>
         </div>
       </div>
+      <audio ref={audioRef} 
+        src={audioSrcs[selectedTrack%audioSrcs.length]}
+        muted={isMuted} 
+        onEnded={() => {setSelectedTrack(selectedTrack + 1)}}
+      />
     </ListPlayerContext.Provider>
   )
 }

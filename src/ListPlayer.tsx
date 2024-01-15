@@ -79,7 +79,7 @@ const testTracks: track[] = [
         artist: [
             {
                 type: 'text',
-                content: 'Duran Duran',
+                content: 'Tennis',
                 className: 'artist'
             }
         ],
@@ -363,11 +363,12 @@ type badge = {
     style?: CSSProperties;      //styles to apply to the span that contains the text
 }
 
-type track = {
+export type track = {
     title: playerText[];
     artist: playerText[];
     album: playerText[];
     duration: string;
+    src?: string;
     meta?: trackInfo;
 }
 
@@ -392,7 +393,7 @@ const Text = ({ textArray }: { textArray: playerText[] }) => {
     )
 }
 
-const ListInfoCard = ({ track, info }: { track: track, info: listInfo }) => {
+export const ListInfoCard = ({ track, info }: { track: track, info: listInfo }) => {
     return (
         <div className="lt-info-card flex justify-between h-full min-h-fit flex-row-reverse p-4">
             <div className="lt-info-panel flex flex-col w-full min-w-[13.9rem] max-h-[30rem] flex-1 pb-20 px-3 pt-2 transition-all duration-500 ease-in-out">
@@ -437,7 +438,7 @@ const ListInfoCard = ({ track, info }: { track: track, info: listInfo }) => {
     )
 }
 
-const Header = ({ info = placeholderListInfo, track, muted = false, playing = false, noControls = false, snapTo = "large", nextCallback, prevCallback, playCallback, muteCallback, children }: { info: listInfo, track: track, muted?: boolean, playing?: boolean, noControls?: boolean, snapTo?: string, nextCallback?: () => void, prevCallback?: () => void, playCallback?: (play: boolean) => void, muteCallback?: (mute: boolean) => void, children?: React.ReactNode }) => {
+export const Header = ({ info = placeholderListInfo, track, muted = false, playing = false, noControls = false, snapTo = "large", nextCallback, prevCallback, playCallback, muteCallback, children }: { info: listInfo, track: track, muted?: boolean, playing?: boolean, noControls?: boolean, snapTo?: string, nextCallback?: () => void, prevCallback?: () => void, playCallback?: (play: boolean) => void, muteCallback?: (mute: boolean) => void, children?: React.ReactNode }) => {
     const height = snapTo === "tiny" ? "92px" : (snapTo === "small" ? "11.65rem" : (snapTo === "medium" ? "16rem" : (snapTo === "large" ? "21.35rem" : snapTo)));
     return (
         <div className="list-header shadow-lg relative w-full min-h-[5.75rem] overflow-hidden " style={{ maxHeight: height, height: height }}>
