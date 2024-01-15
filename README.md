@@ -1,5 +1,7 @@
 >[!WARNING]
 >This package is still in development and is not yet ready for production use.
+<center>[![Static Badge](https://img.shields.io/badge/Demo-415a77?style=for-the-badge)](https://react-playlist-player.vercel.app/)<center>
+![react-playlist-player-demo](https://github.com/bouzidanas/react-playlist-player/assets/25779130/8616dbe1-656f-416a-aa03-a5703d5dbcab)
 
 # <img src='https://raw.githubusercontent.com/bouzidanas/react-playlist-player/master/public/logo.svg' width='22'> react-playlist-player
 
@@ -210,6 +212,10 @@ An optional feature of `<ListPlayer>` is the ability to replace the default head
 Another optional feature is the ability to remove the playback controls from the header. This is done by passing the `noControls` prop to `<ListPlayer>`. This is useful if you want to use your own playback controls. 
 
 Finally, there is a headless mode where only the playlist is rendered. This is done by passing the `noHeader` prop to `<ListPlayer>`. This is useful if you want to keep the playback controls in a separate location from the playlist.
+
+## Demo
+
+[![Static Badge](https://img.shields.io/badge/Demo-415a77?style=for-the-badge)](https://react-playlist-player.vercel.app/)
 
 ## License
 

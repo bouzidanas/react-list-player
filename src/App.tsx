@@ -14,7 +14,7 @@ function App() {
 
   const audioRef = useRef<HTMLAudioElement>(null);
 
-  const durationIncrement = 1000;
+  const durationIncrement = 600;
   const audioSrcs = ["/audio/Sos.mp3", "/audio/Fields of Blue.mp3", "/audio/Forbidden Doors.mp3", "/audio/Show Me How.mp3", "/audio/I Dont Know You.mp3"];
 
   const handleOnPlay = (index:number, resume:boolean) => {
