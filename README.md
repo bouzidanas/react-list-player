@@ -209,6 +209,151 @@ function App() {
 
 The current recommended approach is to have the parent app respond to the ListPlayer using the callbacks and to use the shared state variables to control the ListPlayer. In regards to the latter, just remember that when you change any of the state variables at the top level, the ListPlayer will respond to reflect those changes. However, the ListPlayer will not in turn call the callbacks (since that would be redundant and also because the "command" didnt come directly from the user interacting with ListPlayer elements...like clicking the play button). So you have to directly perform the actions that the callbacks would have performed (if that is desired behavior).
 
+### Data props
+ListPlayer has two props that are used to populate the playlist: `tracks` and `listInfo`. The `tracks` prop is an array of objects that contain information about each track. The `listInfo` prop is an object that contains information about the playlist as a whole. Both of these props are optional only to allow easier testing (if not provide, then test data is used). In practice, you will need to provide both props.
+
+#### `tracks` prop
+
+The `tracks` prop is an array of objects that contain information about each track. The `Track` type is defined (in `ListPlayer.tsx`) as follows:
+
+```ts
+type track = {
+    title: playerText[];       // title of track
+    artist: playerText[];      // artist of track
+    album: playerText[];       // album of track
+    duration: string;          // duration of track
+    src?: string;              // audio url or path
+    imageSrc?: string;         // album cover image url or path
+    meta?: trackInfo;          // additional track info
+}
+```
+The `title`, `artist`, and `album` properties are arrays of `playerText` objects (to differentiate regular text from text that will be treated as badges). The `playerText` type is defined as follows:
+
+```ts
+type playerText = text | badge;
+
+type text = {
+  type: 'text';
+    content: string;            //text to display
+    link?: string;              //link to open on click
+    externalLink?: boolean;     //open link in new tab
+    className?: string;         //classes to apply to the span that contains the text
+    style?: CSSProperties;      //styles to apply to the span that contains the text
+}
+
+type badge = {
+  type: 'badge';
+    content: string;            //text to display
+    className?: string;         //classes to apply to the span that contains the text
+    style?: CSSProperties;      //styles to apply to the span that contains the text
+}
+```
+
+##### Example: Track array containing one track
+  
+```ts
+[
+  {
+    title: [
+      {
+        type: 'text',
+        content: 'Sos',
+        className: 'title'
+      },
+      {
+        type: 'badge',
+        content: 'New',
+        className: 'new'
+      }
+    ],
+    artist: [
+      {
+        type: 'text',
+        content: 'Timothy Fleet',
+        className: 'artist',
+        link: 'https://music.youtube.com/channel/UCmGqnW6VmhOV4KW67vhzPCA'
+      },
+      {
+        type: 'text',
+        content: '&',
+        className: 'artist'
+      },
+      {
+        type: 'text',
+        content: 'Wayne Murray and company',
+        className: 'artist',
+        link: 'https://music.youtube.com/channel/UCkZXltuX3Rta9OiD-O505xg'
+      }
+    ],
+    album: [
+      {
+        type: 'text',
+        content: 'Vintage Radio: 1980s',
+        className: 'album'
+      },
+      {
+        type: 'badge',
+        content: 'Explicit',
+        className: 'explicit'
+      }
+    ],
+    duration: "2:37"
+  }
+]
+```
+
+#### `listInfo` prop
+
+The `listInfo` prop is an object that contains information about the playlist as a whole. This information will be displayed in the header of the playlist.
+The `ListInfo` type is defined (in `ListPlayer.tsx`) as follows:
+
+```ts
+type listInfo = playlistInfo | albumInfo | artistInfo;
+
+type playlistInfo = {
+    type: 'playlist'
+    name: string;
+    numTracks: number;
+    duration: string;
+    creationDate?: string;
+    imageSrc?: string;
+}
+
+type albumInfo = {
+    type: 'album';
+    name: string;
+    numTracks: number;
+    duration: string;
+    releaseDate?: string;
+    genre?: string;
+    imageSrc?: string;
+}
+
+type artistInfo = {
+    type: 'artist';
+    name: string;
+    numTracks: number;
+    numAlbums: number;
+    genre?: string;
+    imageSrc?: string;
+}
+```
+
+##### Example: Playlist info object
+
+```ts
+{
+  type: 'playlist',
+  name: 'My Playlist',
+  numTracks: 1,
+  duration: '3:37',
+  creationDate: '2021-08-01',
+  imageSrc: '/images/playlist.jpg'
+}
+```
+
+## Additional Features
+
 An optional feature of `<ListPlayer>` is the ability to replace the default header with a custom header. This is done by passing a component as a child of `<ListPlayer>`. The component will be rendered in place of the default header. Note that you can embed your media player component in your custom header component although it is not necessary.
 
 Another optional feature is the ability to remove the playback controls from the header. This is done by passing the `noControls` prop to `<ListPlayer>`. This is useful if you want to use your own playback controls. 

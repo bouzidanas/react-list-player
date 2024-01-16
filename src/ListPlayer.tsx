@@ -8,7 +8,7 @@ import './App.css'
 const testListInfo: listInfo = {
     type: 'playlist',
     name: 'Liked Songs',
-    creationDate: "Created on 12/12/2020",
+    creationDate: "12/12/2020",
     numTracks: 10,
     duration: "30 min",
     imageSrc: "https://res.cloudinary.com/dqriqmsdk/image/upload/v1704626899/bird-berry.%7E.e1a90b8aa388f4da20db23617643eda5.jpg"
@@ -414,7 +414,7 @@ export const ListInfoCard = ({ track, info }: { track: track, info: listInfo }) 
                     info.type === "playlist"
                     ?   info.creationDate
                         ?   <div className="lt-info-stats gap-1 flex flex-nowrap [&>span]:whitespace-nowrap">
-                                <span className="text pure">{info.creationDate}</span>
+                                <span className="text pure">Created on {info.creationDate}</span>
                             </div>
                         :   null
                     :   info.type === "artist"
