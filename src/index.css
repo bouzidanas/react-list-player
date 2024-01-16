@@ -31,8 +31,27 @@
   min-width: 300px;
   height: 100vh;
   width: 100%;
-  background-color: #b5838d;
-  padding: 2rem 4rem;
+  padding: 0rem 0rem;
+  scale: 0.9;
+}
+
+#root .app {
+  gap: 0rem;
+  padding-bottom: 1rem;
+  margin-top: 0.25rem;
+  padding-left: 0rem;
+  padding-right: 0rem;
+}
+
+#root .app .listplayer-cont {
+  height: 75%;
+}
+
+.app .explanitory-text {
+  font-size: 1.4rem;
+  max-width: 100%;
+  padding: 1.5rem 0rem;
+
 }
 
 body {
@@ -41,6 +60,8 @@ body {
   place-items: center;
   min-width: 300px;
   min-height: 100vh;
+  
+  background-color: #b5838d;
 }
 
 /* SCROLLBARS ----------------- */
@@ -70,6 +91,27 @@ body {
   background-color: #ffffff88;
 }
 /* ---------------------------- */
+
+@media screen and (min-width: 700px) and (min-height: 500px) {
+  #root {
+    padding: 0rem 18rem;
+    scale: 1.0;
+  }
+  .explanatory-text {
+    max-width: 70%;
+    padding: 1.5rem 1.5rem;
+  }
+  #root .app {
+    gap: 1.5rem;
+    padding-bottom: 3.5rem;
+    margin-top: 0;
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+  #root .app .listplayer-cont {
+    height: 70%;
+  }
+}
 
 @media (prefers-color-scheme: dark) {
   *::-webkit-scrollbar-thumb {

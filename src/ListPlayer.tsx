@@ -537,6 +537,7 @@ export const ListPlayer = ({ tracks = testTracks, listInfo = testListInfo, prevB
     const listBodyRef = useRef<HTMLDivElement>(null);
 
     const allowPrevious = useRef(true);
+    const allowScrollIntoView = useRef(true);
 
     console.log("rendering");
 
@@ -570,7 +571,7 @@ export const ListPlayer = ({ tracks = testTracks, listInfo = testListInfo, prevB
     }
 
     const handleTrackClick = (index: number) => {
-        index === selectedTrack ? playPause(!isPlaying) : setSelectedTrack(index);
+        index === selectedTrack ? playPause(!isPlaying) : allowScrollIntoView.current = false, setSelectedTrack(index);
     }
 
     const handlePreviousClick = () => {
@@ -585,7 +586,8 @@ export const ListPlayer = ({ tracks = testTracks, listInfo = testListInfo, prevB
     useEffect(() => {
         if (selectedTrack === -1) return;
         // console.log("playing track after change in selectedTrack");
-        !(playerMode === "tinyplayer" || playerMode === "miniplayer") && scrollTrackIntoView(selectedTrack);
+        allowScrollIntoView.current && !(playerMode === "tinyplayer" || playerMode === "miniplayer") && scrollTrackIntoView(selectedTrack);
+        allowScrollIntoView.current = true;
         play(false);
     }, [selectedTrack]);
 

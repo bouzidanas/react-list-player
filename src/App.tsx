@@ -157,11 +157,11 @@ function App() {
 
   return (
     <ListPlayerContext.Provider value={{selectedTrack, setSelectedTrack, isPlaying, setIsPlaying, isMuted, setIsMuted}}>
-      <div className="App w-full h-full max-h-[90vh] flex flex-col justify-center items-center p-8">
-        <div key={explanitoryText} className="text-4xl text-center p-12 px-32 h-[12rem] max-w-[60%]" style={{animation: "fadeIn 1s ease-in-out"}}>
+      <div className="app w-full h-full max-h-[95vh] flex flex-col justify-end items-center px-8 pb-14 gap-6">
+        <div key={explanitoryText} className=" explanitory-text text-4xl text-center p-6 px-6 flex justify-center items-start" style={{animation: "fadeIn 1s ease-in-out"}}>
           {explanitoryText}
         </div>
-        <div className='w-full h-[70%] flex justify-center items-start px-[22rem] transition-all duration-500 ease-in-out' style={forceSmallWidth ? {paddingLeft: "32rem", paddingRight: "32rem"} : undefined}>
+        <div className='listplayer-cont w-full h-[70%] flex justify-center items-start px-0 transition-all duration-500 ease-in-out' style={forceSmallWidth ? {paddingLeft: "20%", paddingRight: "20%"} : undefined}>
           <ListPlayer playerMode={playerMode} noControls={replaceHeader} noHeader={headLess} playCallback={handleOnPlay} pauseCallback={handleOnPause}>
             {
               replaceHeader 
