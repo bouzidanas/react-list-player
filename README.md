@@ -152,7 +152,7 @@ function App() {
 
 Alternatively, if `<ListPlayer>` is given a `playCallback` function, it will call that function with the index of the selected track and a flag indicating whether to resume playback or start playback from the beginning. You can also give `<ListPlayer>` a `pauseCallback` function that will be called when playback should be paused. Finally, there is also a `muteCallback` function that is called when the mute/unmute button is clicked.
 
-### Example: Responding to ListPlayer via callbacks
+### Example: Responding to ListPlayer via callback functions
 
 ```tsx
 import { useState } from 'react';
