@@ -207,7 +207,9 @@ function App() {
 
 ```
 
-The current recommended approach is to have the parent app respond to the ListPlayer using the callbacks and to use the shared state variables to control the ListPlayer. In regards to the latter, just remember that when you change any of the state variables at the top level, the ListPlayer will respond to reflect those changes. However, the ListPlayer will not in turn call the callbacks (since that would be redundant and also because the "command" didnt come directly from the user interacting with ListPlayer elements...like clicking the play button). So you have to directly perform the actions that the callbacks would have performed (if that is desired behavior).
+Responding via callbacks (second example) is the recommended approach of the two shown above.
+ 
+Currently, it is recommended to use callbacks when you need the parent app to respond to the ListPlayer and to use the shared state variables to have the parent app control the ListPlayer. In regards to the latter, just remember that when you change any of the state variables at the top level, the ListPlayer will respond to reflect those changes. However, the ListPlayer will not in turn call the callbacks (since that would be redundant and also because the "command" didnt come directly from the user interacting with ListPlayer elements...like clicking the play button). So you have to directly perform the actions that the callbacks would have performed (if that is desired behavior).
 
 ### Data props
 ListPlayer has two props that are used to populate the playlist: `tracks` and `listInfo`. The `tracks` prop is an array of objects that contain information about each track. The `listInfo` prop is an object that contains information about the playlist as a whole. Both of these props are optional only to allow easier testing (if not provided, then test data is used). In practice, you will need to provide both props.
