@@ -9,7 +9,7 @@ const testListInfo: listInfo = {
   creationDate: "11/12/2022",
   numTracks: 10,
   duration: "35 min",
-  imageSrc: "https://images.pexels.com/photos/14469414/pexels-photo-14469414.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+  imageSrc: "/bird.jpg"
 }
 
 // This is just a sample track array, you can use your own
