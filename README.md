@@ -275,8 +275,7 @@ type badge = {
       },
       {
         type: 'text',
-        content: '&',
-        className: 'artist'
+        content: '&'
       },
       {
         type: 'text',
