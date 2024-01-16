@@ -233,7 +233,7 @@ The `title`, `artist`, and `album` properties are arrays of `playerText` objects
 type playerText = text | badge;
 
 type text = {
-  type: 'text';
+    type: 'text';
     content: string;            //text to display
     link?: string;              //link to open on click
     externalLink?: boolean;     //open link in new tab
@@ -242,7 +242,7 @@ type text = {
 }
 
 type badge = {
-  type: 'badge';
+    type: 'badge';
     content: string;            //text to display
     className?: string;         //classes to apply to the span that contains the text
     style?: CSSProperties;      //styles to apply to the span that contains the text
