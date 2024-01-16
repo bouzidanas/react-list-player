@@ -14,7 +14,7 @@ This package centers around the ListPlayer component which is a react component 
 
 ListPlayer is fully responsive, and will, by default, adapt to the size of its container element. It also comes with several built-in sizes that the component can "snap" to or smoothly switched between. 
 
-The main reason behind not including some form of media player is to avoid limiting the use cases to those attached to specific media types or sources. A playlist can be a list of videos, a list of songs, a list of sound clips, or a mix of everything, for example. 
+The main reason behind not including some form of media player is to avoid limiting the use cases to those attached to specific media types or sources. A playlist can be a list of videos, a list of songs, a list of sound clips, or a mix of everything. 
 
 Another reason is that developers may prefer to use their own media player component, or may want to use a different media player component for different media types.
 
