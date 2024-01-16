@@ -14,7 +14,7 @@ function App() {
 
   const audioRef = useRef<HTMLAudioElement>(null);
 
-  const durationIncrement = 600;
+  const durationIncrement = 1000;
   const audioSrcs = ["/audio/Sos.mp3", "/audio/Fields of Blue.mp3", "/audio/Forbidden Doors.mp3", "/audio/Show Me How.mp3", "/audio/I Dont Know You.mp3"];
 
   const handleOnPlay = (index:number, resume:boolean) => {
@@ -78,7 +78,7 @@ function App() {
     
     const timer8 = setTimeout(() => {
       setExplanitoryText("The player does not play media, it just provides a user interface to control playback.");
-    }, 33*durationIncrement);
+    }, 35*durationIncrement);
     
     const timer9 = setTimeout(() => {
       setForceSmallWidth(false);
@@ -86,7 +86,7 @@ function App() {
       audioRef.current?.play();
       setIsMuted(true);
       setExplanitoryText("This means that you can combine it with any media player you like, such as react-player.");
-    }, 39*durationIncrement);
+    }, 40*durationIncrement);
 
     const timer10 = setTimeout(() => {
       setIsPlaying(false);
