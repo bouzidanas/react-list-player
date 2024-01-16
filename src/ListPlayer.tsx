@@ -12,6 +12,7 @@ const testListInfo: listInfo = {
     numTracks: 10,
     duration: "30 min",
     imageSrc: "https://res.cloudinary.com/dqriqmsdk/image/upload/v1704626899/bird-berry.%7E.e1a90b8aa388f4da20db23617643eda5.jpg"
+
 }
 
 const placeholderListInfo: listInfo = {
@@ -432,9 +433,19 @@ export const ListInfoCard = ({ track, info }: { track: track, info: listInfo }) 
                     <span className="text pure number">{info.type === "artist" ? info.numAlbums : info.duration}</span>
                 </div>
             </div>
-            <div className="lt-info-img-cont h-fit max-h-full rounded-lg overflow-hidden shadow-md aspect-square">
-                <img className="lt-info-img object-cover h-full w-[14rem]" src={info.imageSrc??track.imageSrc} alt="list image" />
-            </div>
+            {
+                info?.imageSrc || track?.imageSrc
+                ?   <div className="lt-info-img-cont h-fit max-h-full rounded-lg overflow-hidden shadow-md aspect-square">
+                        <img className="lt-info-img object-cover h-full w-[14rem]" src={info.imageSrc??track.imageSrc} alt="list image" />
+                    </div>
+                :   <div className="lt-info-art-placeholder-cont h-fit max-h-full rounded-lg overflow-hidden shadow-md aspect-square border-2 border-gray-300 opacity-80">
+                        <div className="lt-info-placeholder h-full w-[14rem] max-w-full flex justify-center items-center text-3xl text-center p-4" style={{animation: "fadeIn 1s ease-in-out", background: "repeating-linear-gradient( 45deg, #22222266, #22222266 6px, #22222200 6px, #22222200 12px)"}}>
+                            <span>
+                            no cover
+                            </span>
+                        </div>
+                    </div>
+            }       
         </div>
     )
 }

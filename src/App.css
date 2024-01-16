@@ -344,3 +344,19 @@ span.explicit {
     background-color: rgba(0, 0, 0, 0.10);
   }
 }
+
+div.lt-info-placeholder {
+  container-name: art;
+  container-type: inline-size;
+}
+
+div.lt-info-placeholder > span {
+  transition: font-size 0.2s linear, line-height 0.2s linear;
+}
+
+@container art (max-width: 60px) {
+  div.lt-info-placeholder > span {
+    font-size: 1.2rem;
+    line-height: 1.4rem;
+  }
+}
