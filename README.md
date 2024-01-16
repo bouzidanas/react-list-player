@@ -214,7 +214,7 @@ ListPlayer has two props that are used to populate the playlist: `tracks` and `l
 
 #### `tracks` prop
 
-The `tracks` prop is an array of objects that contain information about each track. The `Track` type is defined (in `ListPlayer.tsx`) as follows:
+The `tracks` prop is an array of objects that contain information about each track. The `track` type is defined (in `ListPlayer.tsx`) as follows:
 
 ```ts
 type track = {
