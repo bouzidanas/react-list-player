@@ -1,6 +1,306 @@
 import { useEffect, useRef, useState } from 'react';
-import { ListPlayer } from './ListPlayer'
+import { ListPlayer, track, listInfo } from './ListPlayer'
 import { ListPlayerContext } from './ListPlayerContext';
+
+// This is just a sample listInfo object, you can use your own
+const testListInfo: listInfo = {
+  type: 'playlist',
+  name: 'Liked Songs',
+  creationDate: "12/12/2020",
+  numTracks: 10,
+  duration: "30 min",
+  imageSrc: "https://res.cloudinary.com/dqriqmsdk/image/upload/v1704626899/bird-berry.%7E.e1a90b8aa388f4da20db23617643eda5.jpg"
+
+}
+
+// This is just a sample track array, you can use your own
+const testTracks: track[] = [
+  {
+      title: [
+          {
+              type: 'text',
+              content: 'Sos works',
+              className: 'title'
+          },
+          {
+              type: 'badge',
+              content: 'New',
+              className: 'new'
+          }
+      ],
+      artist: [
+          {
+              type: 'text',
+              content: 'Timothy Fleet',
+              className: 'artist',
+              link: 'https://music.youtube.com/channel/UCmGqnW6VmhOV4KW67vhzPCA'
+          },
+          {
+              type: 'text',
+              content: '&',
+              className: 'artist'
+          },
+          {
+              type: 'text',
+              content: 'Wayne Murray and company',
+              className: 'artist',
+              link: 'https://music.youtube.com/channel/UCkZXltuX3Rta9OiD-O505xg'
+          }
+      ],
+      album: [
+          {
+              type: 'text',
+              content: 'Vintage Radio: 1980s',
+              className: 'album'
+          },
+          {
+              type: 'badge',
+              content: 'Explicit',
+              className: 'explicit'
+          }
+      ],
+      duration: "2:37"
+  },
+  {
+      title: [
+          {
+              type: 'text',
+              content: 'Fields of Blue',
+              className: 'title'
+          }
+      ],
+      artist: [
+          {
+              type: 'text',
+              content: 'Tennis',
+              className: 'artist'
+          }
+      ],
+      album: [
+          {
+              type: 'text',
+              content: 'Yours Conditionally',
+              className: 'album'
+          }
+      ],
+      duration: "3:29"
+  },
+  {
+      title: [
+          {
+              type: 'text',
+              content: 'Forbidden Doors',
+              className: 'title'
+          }
+      ],
+      artist: [
+          {
+              type: 'text',
+              content: 'Tennis',
+              className: 'artist'
+          }
+      ],
+      album: [
+          {
+              type: 'text',
+              content: 'Forbidden Doors',
+              className: 'album'
+          },
+          {
+              type: 'badge',
+              content: 'Explicit',
+              className: 'explicit'
+          }
+      ],
+      duration: "3:54"
+  },
+  {
+      title: [
+          {
+              type: 'text',
+              content: 'Show Me How',
+              className: 'title'
+          },
+          {
+              type: 'badge',
+              content: 'New',
+              className: 'new'
+          }
+      ],
+      artist: [
+          {
+              type: 'text',
+              content: 'Men I Trust',
+              className: 'artist'
+          }
+      ],
+      album: [
+          {
+              type: 'text',
+              content: 'Show Me How',
+              className: 'album'
+          }
+      ],
+      duration: "3:36"
+  },
+  {
+      title: [
+          {
+              type: 'text',
+              content: 'I Dont know You',
+              className: 'title'
+          }
+      ],
+      artist: [
+          {
+              type: 'text',
+              content: 'The Marías',
+              className: 'artist',
+              link: 'https://music.youtube.com/channel/UCVV5M4OEFsKnB9HBhwOhHbA',
+              externalLink: true
+          }
+      ],
+      album: [
+          {
+              type: 'text',
+              content: 'Superclean, Vol. I',
+              className: 'album'
+          }
+      ],
+      duration: "3:30"
+  },
+  {
+      title: [
+          {
+              type: 'text',
+              content: 'Lady Luck',
+              className: 'title'
+          }
+      ],
+      artist: [
+
+          {
+              type: 'badge',
+              content: 'New',
+              className: 'new'
+          },
+          {
+              type: 'text',
+              content: 'Nature TV',
+              className: 'artist'
+          }
+      ],
+      album: [
+          {
+              type: 'text',
+              content: 'Lady Luck EP',
+              className: 'album'
+          }
+      ],
+      duration: "3:33"
+  },
+  {
+      title: [
+          {
+              type: 'text',
+              content: 'Alrighty Aphrodite',
+              className: 'title'
+          }
+      ],
+      artist: [
+          {
+              type: 'text',
+              content: 'Peach Pit',
+              className: 'artist'
+          }
+      ],
+      album: [
+          {
+              type: 'text',
+              content: 'Being So Normal',
+              className: 'album'
+          }
+      ],
+      duration: "3:28"
+  },
+  {
+      title: [
+          {
+              type: 'text',
+              content: 'The Less I Know The Better',
+              className: 'title'
+          }
+      ],
+      artist: [
+          {
+              type: 'text',
+              content: 'Tame Impala',
+              className: 'artist'
+          }
+      ],
+      album: [
+          {
+              type: 'text',
+              content: 'Currents',
+              className: 'album'
+          }
+      ],
+      duration: "3:39"
+  },
+  {
+      title: [
+          {
+              type: 'text',
+              content: 'Save a Prayer (2009 Remaster)',
+              className: 'title'
+          }
+      ],
+      artist: [
+          {
+              type: 'text',
+              content: 'Duran Duran',
+              className: 'artist'
+          }
+      ],
+      album: [
+          {
+              type: 'text',
+              content: "Rio (Collector's Edition)",
+              className: 'album'
+          },
+          {
+              type: 'badge',
+              content: 'Explicit',
+              className: 'explicit'
+          }
+      ],
+      duration: "12:00:37"
+  },
+  {
+      title: [
+          {
+              type: 'text',
+              content: "Ladies Don't Play Guitar",
+              className: 'title'
+          }
+      ],
+      artist: [
+          {
+              type: 'text',
+              content: 'Tennis',
+              className: 'artist'
+          }
+      ],
+      album: [
+          {
+              type: 'text',
+              content: 'Yours Conditionally',
+              className: 'album'
+          }
+      ],
+      duration: "13:29"
+  }
+]
 
 function App() {
   const [selectedTrack, setSelectedTrack] = useState(-1);
@@ -162,7 +462,7 @@ function App() {
           {explanitoryText}
         </div>
         <div className='listplayer-cont w-full h-[70%] flex justify-center items-start px-0 transition-all duration-500 ease-in-out' style={forceSmallWidth ? {paddingLeft: "20%", paddingRight: "20%"} : undefined}>
-          <ListPlayer playerMode={playerMode} noControls={replaceHeader} noHeader={headLess} playCallback={handleOnPlay} pauseCallback={handleOnPause}>
+          <ListPlayer tracks={testTracks} listInfo={testListInfo} playerMode={playerMode} noControls={replaceHeader} noHeader={headLess} playCallback={handleOnPlay} pauseCallback={handleOnPause}>
             {
               replaceHeader 
               ? <div className="absolute w-full h-full flex justify-center items-center text-4xl text-center p-12" style={{animation: "fadeIn 1s ease-in-out", background: "repeating-linear-gradient( 45deg, #22222255, #22222255 10px, #22222200 10px, #22222200 20px)"}}>

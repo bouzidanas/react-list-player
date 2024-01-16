@@ -338,7 +338,7 @@ type artistInfo = {
     imageSrc?: string;
 }
 
-type listInfo = playlistInfo | albumInfo | artistInfo;
+export type listInfo = playlistInfo | albumInfo | artistInfo;
 
 type trackInfo = {
     alternateTitle?: string;
@@ -629,7 +629,7 @@ export const ListPlayer = ({ tracks = testTracks, listInfo = testListInfo, prevB
                 }
                 <div ref={listBodyRef} className="list-body">
                     {
-                        testTracks.map((track, index) => <Track key={"track-" + index} track={track} trackNumber={index + 1} onClick={() => handleTrackClick(index)} selected={index === selectedTrack} playIcon={!isPlaying || index !== selectedTrack} />)
+                        tracks.map((track, index) => <Track key={"track-" + index} track={track} trackNumber={index + 1} onClick={() => handleTrackClick(index)} selected={index === selectedTrack} playIcon={!isPlaying || index !== selectedTrack} />)
                     }
                 </div>
             </div>
