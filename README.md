@@ -2,7 +2,7 @@
 >This package is still in development and is not yet ready for production use.
 
 <p align="center">
-  <img width="875" height="650" src="https://github.com/bouzidanas/react-playlist-player/assets/25779130/14414b96-ce78-4ad0-9d73-1b8eed7d7139"/>
+  <img width="800" height="600" src="https://github.com/bouzidanas/react-playlist-player/assets/25779130/5d0bdc8f-dab0-4b3d-9ddf-10f310e64246"/>
 </p>
 
 # <img src='https://raw.githubusercontent.com/bouzidanas/react-playlist-player/master/public/logo.svg' width='22'> react-playlist-player [![Static Badge](https://img.shields.io/badge/Demo-415a77?style=for-the-badge)](https://react-playlist-player.vercel.app/)
