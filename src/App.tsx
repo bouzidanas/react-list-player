@@ -9,8 +9,7 @@ const testListInfo: listInfo = {
   creationDate: "11/12/2022",
   numTracks: 10,
   duration: "35 min",
-  imageSrc: "https://res.cloudinary.com/dqriqmsdk/image/upload/v1704626899/bird-berry.%7E.e1a90b8aa388f4da20db23617643eda5.jpg"
-
+  imageSrc: "https://images.pexels.com/photos/14469414/pexels-photo-14469414.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
 }
 
 // This is just a sample track array, you can use your own
