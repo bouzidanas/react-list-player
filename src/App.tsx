@@ -6,9 +6,9 @@ import { ListPlayerContext } from './ListPlayerContext';
 const testListInfo: listInfo = {
   type: 'playlist',
   name: 'Liked Songs',
-  creationDate: "12/12/2020",
+  creationDate: "11/12/2022",
   numTracks: 10,
-  duration: "30 min",
+  duration: "35 min",
   imageSrc: "https://res.cloudinary.com/dqriqmsdk/image/upload/v1704626899/bird-berry.%7E.e1a90b8aa388f4da20db23617643eda5.jpg"
 
 }
@@ -19,7 +19,7 @@ const testTracks: track[] = [
       title: [
           {
               type: 'text',
-              content: 'Sos works',
+              content: 'Sos',
               className: 'title'
           },
           {
