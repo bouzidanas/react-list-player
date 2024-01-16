@@ -369,6 +369,7 @@ export type track = {
     album: playerText[];
     duration: string;
     src?: string;
+    imageSrc?: string;
     meta?: trackInfo;
 }
 
@@ -432,7 +433,7 @@ export const ListInfoCard = ({ track, info }: { track: track, info: listInfo }) 
                 </div>
             </div>
             <div className="lt-info-img-cont h-fit max-h-full rounded-lg overflow-hidden shadow-md aspect-square">
-                <img className="lt-info-img object-cover h-full w-[14rem]" src={info.imageSrc} alt="list image" />
+                <img className="lt-info-img object-cover h-full w-[14rem]" src={info.imageSrc??track.imageSrc} alt="list image" />
             </div>
         </div>
     )

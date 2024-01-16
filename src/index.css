@@ -97,7 +97,8 @@ body {
     padding: 0rem 18rem;
     scale: 1.0;
   }
-  .explanatory-text {
+  #root .app .explanitory-text {
+    font-size: 2.2rem;
     max-width: 70%;
     padding: 1.5rem 1.5rem;
   }
