@@ -2,7 +2,7 @@
 >This package is still in development and is not yet ready for production use.
 
 <p align="center">
-  <img width="808" height="600" src="https://github.com/bouzidanas/react-playlist-player/assets/25779130/8616dbe1-656f-416a-aa03-a5703d5dbcab"/>
+  <img width="875" height="650" src="https://github.com/bouzidanas/react-playlist-player/assets/25779130/14414b96-ce78-4ad0-9d73-1b8eed7d7139"/>
 </p>
 
 # <img src='https://raw.githubusercontent.com/bouzidanas/react-playlist-player/master/public/logo.svg' width='22'> react-playlist-player [![Static Badge](https://img.shields.io/badge/Demo-415a77?style=for-the-badge)](https://react-playlist-player.vercel.app/)
@@ -18,7 +18,7 @@ The main reason behind not including some form of media player is to avoid limit
 
 Another reason is that developers may prefer to use their own media player component, or may want to use a different media player component for different media types.
 
-ListPlayer also has a headless mode where only the interactive playlist rendered; the included playback controls (play/pause, prev/next, mute/unmute) are removed. This allows developers to use their own separate playback controls. This allows for more flexibility in the design of the user interface. Many sites for example, have a fixed playback control bar at the bottom of the page, and a separate playlist component elsewhere on the page.
+ListPlayer also has a headless mode where only the interactive playlist is presented; the included playback controls (play/pause, prev/next, mute/unmute) are removed. This allows developers to use their own separate playback controls. This allows for more flexibility in the design of the user interface. Many sites for example, have a fixed playback control bar at the bottom of the page, and a separate playlist component elsewhere on the page.
 
 ## Installation
 
@@ -217,10 +217,11 @@ Finally, there is a headless mode where only the playlist is rendered. This is d
 
 ## Demo
 
-[![Static Badge](https://img.shields.io/badge/Demo-415a77?style=for-the-badge)](https://react-playlist-player.vercel.app/)  :arrow_left: *Click here to see a demo of the ListPlayer component*
-
 >[!NOTE]
->The tracks used in the demo are protected by copywrite. The audio files are omitted from the repository and the demo site. You can run the demo locally by cloning the repository and adding your own audio files to the `public/audio` folder.
+>The tracks used in the demo are protected by copywrite. The audio files are omitted from the repository and the demo site. You can run the demo locally by cloning the repository and adding your own audio files to the `public/audio` folder. Make sure to also add the file names to the `audioSrcs` array if you are using the example code from the previous section.
+
+[![Static Badge](https://img.shields.io/badge/Demo-415a77?style=for-the-badge)](https://react-playlist-player.vercel.app/)   :arrow_left: *(Click here to see a demo of the ListPlayer component)*
+
 
 ## License
 
