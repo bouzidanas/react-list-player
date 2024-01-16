@@ -340,6 +340,8 @@ type artistInfo = {
 }
 ```
 
+Note that there are three different playlist info types: `playlistInfo`, `albumInfo`, and `artistInfo`. This is because the playlist header can display different information depending on the type of playlist. `artistInfo` should be used for a playlist of content from same source (like a person or a studio). `albumInfo` should be used for a playlist of content from the same collection. `playlistInfo` should be used for a playlist of content from multiple sources and/or collections.
+
 ##### Example: Playlist info object
 
 ```ts
