@@ -59,8 +59,7 @@ Below is a basic skeleton of how to use the ListPlayer component.
 
 ```tsx
 import { useState } from 'react';
-import { ListPlayer } from './ListPlayer'
-import { ListPlayerContext } from './ListPlayerContext';
+import { ListPlayer, ListPlayerContext } from 'react-playlist-player';
 
 // The following test object has type ListInfo which is defined in the ListPlayer file
 const testListInfo = {}; // object needed to populate the playlist header with
@@ -94,8 +93,7 @@ The `<ListPlayer>` component responds to changes in the three shared context var
 
 ```tsx
 import { useState } from 'react';
-import { ListPlayer } from './ListPlayer'
-import { ListPlayerContext } from './ListPlayerContext';
+import { ListPlayer, ListPlayerContext } from 'rea';
 
 const testListInfo = {/*...*/};
 
@@ -156,8 +154,7 @@ Alternatively, if `<ListPlayer>` is given a `playCallback` function, it will cal
 
 ```tsx
 import { useState } from 'react';
-import { ListPlayer } from './ListPlayer'
-import { ListPlayerContext } from './ListPlayerContext';
+import { ListPlayer, ListPlayerContext } from 'rea';
 
 const testListInfo = {/*...*/};
 
