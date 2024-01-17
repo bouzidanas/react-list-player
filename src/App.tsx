@@ -297,7 +297,7 @@ const testTracks: track[] = [
   }
 ]
 
-export function App() {
+export const App = () => {
   const [selectedTrack, setSelectedTrack] = useState(-1);
   const [isPlaying, setIsPlaying] = useState(false);
   const [isMuted, setIsMuted] = useState(false);
