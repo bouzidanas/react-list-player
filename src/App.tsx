@@ -6,9 +6,9 @@ import { ListPlayerContext } from './ListPlayerContext';
 const testListInfo: listInfo = {
   type: 'playlist',
   name: 'Royalty Free Playlist',
-  creationDate: "11/12/2022",
+  creationDate: "1/16/2024",
   numTracks: 10,
-  duration: "35 min"
+  duration: "24 min"
 }
 
 // This is just a sample track array, you can use your own
