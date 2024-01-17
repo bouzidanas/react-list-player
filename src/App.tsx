@@ -36,8 +36,7 @@ const testTracks: track[] = [
           },
           {
               type: 'text',
-              content: '&',
-              className: 'artist'
+              content: '&'
           },
           {
               type: 'text',
