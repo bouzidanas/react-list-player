@@ -124,8 +124,8 @@ const testTracks: track[] = [
         },
         {
             type: 'badge',
-            content: 'Explicit',
-            className: 'explicit'
+            content: 'E',
+            className: 'e'
         }
     ],
     duration: "2:33",
