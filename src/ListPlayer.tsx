@@ -413,21 +413,21 @@ export const ListInfoCard = ({ track, info }: { track: track, info: listInfo }) 
                 {
                     info.type === "playlist"
                     ?   info.creationDate
-                        ?   <div className="lt-info-stats gap-1 flex flex-nowrap [&>span]:whitespace-nowrap">
+                        ?   <div className="lt-info-stats">
                                 <span className="text pure">Created on {info.creationDate}</span>
                             </div>
                         :   null
                     :   info.type === "artist"
-                        ?   <div className="lt-info-stats gap-1 flex flex-nowrap [&>span]:whitespace-nowrap">
+                        ?   <div className="lt-info-stats">
                                 <span className="text pure">{info.genre}</span>
                             </div>
-                        :   <div className="lt-info-stats gap-1 flex flex-nowrap [&>span]:whitespace-nowrap">
+                        :   <div className="lt-info-stats">
                                 <span className="text pure">{info.releaseDate}</span>
                                 <span className="cdot" style={{ fontWeight: "bold", margin: "1px" }}>·</span>
                                 <span className="text pure">{info.genre}</span>
                             </div>
                 }
-                <div className="lt-info-stats gap-1 flex flex-nowrap [&>span]:whitespace-nowrap">
+                <div className="lt-info-stats">
                     <span className="text number">{info.numTracks} tracks</span>
                     <span className="cdot number" style={{ fontWeight: "bold", margin: "1px" }}>·</span>
                     <span className="text pure number">{info.type === "artist" ? info.numAlbums : info.duration}</span>
@@ -435,11 +435,11 @@ export const ListInfoCard = ({ track, info }: { track: track, info: listInfo }) 
             </div>
             {
                 info?.imageSrc || track?.imageSrc
-                ?   <div className="lt-info-img-cont h-fit max-h-full rounded-lg overflow-hidden shadow-md aspect-square">
-                        <img className="lt-info-img object-cover h-full w-[14rem]" src={info.imageSrc??track.imageSrc} alt="list image" />
+                ?   <div className="lt-info-img-cont">
+                        <img className="lt-info-img" src={info.imageSrc??track.imageSrc} alt="list image" />
                     </div>
-                :   <div className="lt-info-art-placeholder-cont h-fit max-h-full rounded-lg overflow-hidden shadow-md aspect-square border-2 border-gray-300 opacity-80">
-                        <div className="lt-info-placeholder h-full w-[14rem] max-w-full flex justify-center items-center text-3xl text-center p-4" style={{animation: "fadeIn 1s ease-in-out", background: "repeating-linear-gradient( 45deg, #22222266, #22222266 6px, #22222200 6px, #22222200 12px)"}}>
+                :   <div className="lt-info-art-placeholder-cont">
+                        <div className="lt-info-placeholder" style={{animation: "fadeIn 1s ease-in-out", background: "repeating-linear-gradient( 45deg, #22222266, #22222266 6px, #22222200 6px, #22222200 12px)"}}>
                             <span>
                             no cover
                             </span>
@@ -551,7 +551,7 @@ export const ListPlayer = ({ tracks = testTracks, listInfo = testListInfo, prevB
     const allowPrevious = useRef(true);
     const allowScrollIntoView = useRef(true);
 
-    console.log("rendering");
+    // console.log("rendering");
 
     const play = (resume = true) => {
         setIsPlaying(true);
