@@ -297,7 +297,7 @@ const testTracks: track[] = [
   }
 ]
 
-function App() {
+export function App() {
   const [selectedTrack, setSelectedTrack] = useState(-1);
   const [isPlaying, setIsPlaying] = useState(false);
   const [isMuted, setIsMuted] = useState(false);
@@ -476,5 +476,3 @@ function App() {
     </ListPlayerContext.Provider>
   )
 }
-
-export default App
