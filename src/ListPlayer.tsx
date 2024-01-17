@@ -541,10 +541,8 @@ const Track = ({ track, trackNumber, selected = false, playIcon = true, onClick 
 }
 
 // TODO: Make tracks and listInfo mandatory props
-export const ListPlayer = ({ tracks = testTracks, listInfo = testListInfo, prevBufferTime = 1500, playerMode, noControls = false, noHeader = false, playCallback, pauseCallback, muteCallback, children }: { tracks?: track[], listInfo?: listInfo, prevBufferTime?: number, playerMode?: string, noControls?: boolean, noHeader?: boolean, playCallback?: (trackNumber: number, resume: boolean) => void, pauseCallback?: () => void, muteCallback?: (mute: boolean) => void, children?: React.ReactNode }) => {
+export const ListPlayer = ({ tracks = testTracks, listInfo = testListInfo, selectedTrack=-1, isPlaying=false, isMuted=false, prevBufferTime = 1500, playerMode, noControls = false, noHeader = false, playCallback, pauseCallback, muteCallback, children }: { tracks?: track[], listInfo?: listInfo, selectedTrack?: number, isPlaying?: boolean, isMuted?: boolean, prevBufferTime?: number, playerMode?: string, noControls?: boolean, noHeader?: boolean, playCallback?: (trackNumber: number, resume: boolean) => void, pauseCallback?: () => void, muteCallback?: (mute: boolean) => void, children?: React.ReactNode }) => {
     const [timerTriggerFlag, setTimerTriggerFlag] = useState(false);
-
-    const { selectedTrack, setSelectedTrack, isPlaying, setIsPlaying, isMuted, setIsMuted } = useContext(ListPlayerContext);
 
     const listBodyRef = useRef<HTMLDivElement>(null);
 
@@ -554,7 +552,6 @@ export const ListPlayer = ({ tracks = testTracks, listInfo = testListInfo, prevB
     console.log("rendering");
 
     const play = (resume = true) => {
-        setIsPlaying(true);
         playCallback && playCallback(selectedTrack, resume);
 
         if (!resume) {
@@ -564,18 +561,16 @@ export const ListPlayer = ({ tracks = testTracks, listInfo = testListInfo, prevB
     }
 
     const pause = () => {
-        setIsPlaying(false);
         pauseCallback && pauseCallback();
     }
 
     const mute = (mute: boolean) => {
-        setIsMuted(mute);
         muteCallback && muteCallback(mute);
     }
 
     const playPause = (triggerPlay: boolean) => {
         if (selectedTrack === -1) {
-            triggerPlay ? setSelectedTrack(0) : null;
+            triggerPlay ? playCallback && playCallback(0, false) : null;
         }
         else {
             triggerPlay ? play() : pause();
@@ -583,11 +578,18 @@ export const ListPlayer = ({ tracks = testTracks, listInfo = testListInfo, prevB
     }
 
     const handleTrackClick = (index: number) => {
-        index === selectedTrack ? playPause(!isPlaying) : allowScrollIntoView.current = false, setSelectedTrack(index);
+        console.log("track clicked: ", index);
+        console.log("selectedTrack: ", selectedTrack);
+        console.log("isPlaying: ", isPlaying);
+        index === selectedTrack ? (isPlaying ? pauseCallback && pauseCallback() : playCallback && playCallback(selectedTrack, true)) : allowScrollIntoView.current = false, playCallback && playCallback(index, false);
     }
 
     const handlePreviousClick = () => {
-        allowPrevious.current || !isPlaying ? setSelectedTrack((selectedTrack - 1 + tracks.length) % tracks.length) : play(false)
+        allowPrevious.current || !isPlaying ? playCallback && playCallback((selectedTrack - 1 + tracks.length) % tracks.length, false) : play(false)
+    }
+
+    const handleNextClick = () => {
+        playCallback && playCallback((selectedTrack + 1) % tracks.length, false);
     }
 
     const scrollTrackIntoView = (index: number) => {
@@ -623,7 +625,7 @@ export const ListPlayer = ({ tracks = testTracks, listInfo = testListInfo, prevB
                 {
                     noHeader
                         ?   null
-                        :   <Header info={listInfo} track={tracks[selectedTrack]} snapTo={playerMode === "tiny" ? "tiny" : (playerMode === "small" ? "small" : (playerMode === "medium" ? "medium" : (playerMode === "large" ? "large" : (playerMode === undefined ? undefined : playerMode)))) } noControls={noControls} muted={isMuted} playing={isPlaying} muteCallback={mute} playCallback={playPause} nextCallback={() => setSelectedTrack((selectedTrack + 1) % tracks.length)} prevCallback={() => handlePreviousClick()}>
+                        :   <Header info={listInfo} track={tracks[selectedTrack]} snapTo={playerMode === "tiny" ? "tiny" : (playerMode === "small" ? "small" : (playerMode === "medium" ? "medium" : (playerMode === "large" ? "large" : (playerMode === undefined ? undefined : playerMode)))) } noControls={noControls} muted={isMuted} playing={isPlaying} muteCallback={mute} playCallback={playPause} nextCallback={handleNextClick} prevCallback={handlePreviousClick}>
                                 {children}
                             </Header>
                 }

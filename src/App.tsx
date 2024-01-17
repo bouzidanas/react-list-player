@@ -313,20 +313,36 @@ function App() {
 
   const audioRef = useRef<HTMLAudioElement>(null);
 
-  const durationIncrement = 1000;
+  const durationIncrement = 300;
   const audioSrcs = ["/audio/Sos.mp3", "/audio/Fields of Blue.mp3", "/audio/Forbidden Doors.mp3", "/audio/Show Me How.mp3", "/audio/I Dont Know You.mp3"];
 
+  console.log("rendering app");
+
+  const play = () => {
+    console.log("play");
+    audioRef.current?.play();
+    setIsPlaying(true);
+  }
+
+  const pause = () => {
+    console.log("pause");
+    audioRef.current?.pause();
+    setIsPlaying(false);
+  }
+
   const handleOnPlay = (index:number, resume:boolean) => {
-    if(index === selectedTrack && !resume) {
-      audioRef.current?.load();
-      audioRef.current?.play();
+    console.log("handleOnPlay");
+    if(index === selectedTrack) {
+      if (!resume) audioRef.current?.load();
     } else {
-      audioRef.current?.play();
+      setSelectedTrack(index);
     }
+    play();
   }
 
   const handleOnPause = () => {
-    audioRef.current?.pause();
+    console.log("handleOnPause");
+    pause();
   }
 
   useEffect(() => {
@@ -340,6 +356,7 @@ function App() {
 
     const timer2 = setTimeout(() => {
       setSelectedTrack(3);
+      setIsPlaying(true);
     }, 8*durationIncrement);
 
     const timer3 = setTimeout(() => {
@@ -348,7 +365,6 @@ function App() {
 
     const timer4 = setTimeout(() => {
       setIsPlaying(false);
-      audioRef.current?.pause();
     }, 13*durationIncrement);
 
     const timer5 = setTimeout(() => {
@@ -382,14 +398,12 @@ function App() {
     const timer9 = setTimeout(() => {
       setForceSmallWidth(false);
       setIsPlaying(true);
-      audioRef.current?.play();
       setIsMuted(true);
       setExplanitoryText("This means that you can combine it with any media player you like, such as react-player.");
     }, 40*durationIncrement);
 
     const timer10 = setTimeout(() => {
       setIsPlaying(false);
-      audioRef.current?.pause();
       setIsMuted(false);
       setExplanitoryText("Since ListPlayer accepts a child component, you can use it to wrap your media player");
     }, 45*durationIncrement);
@@ -455,13 +469,24 @@ function App() {
   }, []);
 
   return (
-    <ListPlayerContext.Provider value={{selectedTrack, setSelectedTrack, isPlaying, setIsPlaying, isMuted, setIsMuted}}>
+    <>
       <div className="app w-full h-full max-h-[95vh] flex flex-col justify-end items-center px-8 pb-14 gap-6">
         <div key={explanitoryText} className=" explanitory-text text-4xl text-center p-6 px-6 flex justify-center items-start" style={{animation: "fadeIn 1s ease-in-out"}}>
           {explanitoryText}
         </div>
         <div className='listplayer-cont w-full h-[70%] flex justify-center items-start px-0 transition-all duration-500 ease-in-out' style={forceSmallWidth ? {paddingLeft: "20%", paddingRight: "20%"} : undefined}>
-          <ListPlayer tracks={testTracks} listInfo={testListInfo} playerMode={playerMode} noControls={replaceHeader} noHeader={headLess} playCallback={handleOnPlay} pauseCallback={handleOnPause}>
+          <ListPlayer 
+            tracks={testTracks} 
+            listInfo={testListInfo} 
+            selectedTrack={selectedTrack}
+            isPlaying={isPlaying}
+            isMuted={isMuted}
+            playerMode={playerMode} 
+            noControls={replaceHeader} 
+            noHeader={headLess} 
+            playCallback={handleOnPlay} 
+            pauseCallback={handleOnPause}
+          >
             {
               replaceHeader 
               ? <div className="absolute w-full h-full flex justify-center items-center text-4xl text-center p-12" style={{animation: "fadeIn 1s ease-in-out", background: "repeating-linear-gradient( 45deg, #22222255, #22222255 10px, #22222200 10px, #22222200 20px)"}}>
@@ -477,7 +502,7 @@ function App() {
         muted={isMuted} 
         onEnded={() => {setSelectedTrack(selectedTrack + 1)}}
       />
-    </ListPlayerContext.Provider>
+    </>
   )
 }
 
