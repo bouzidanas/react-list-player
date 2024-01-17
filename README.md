@@ -93,7 +93,7 @@ The `<ListPlayer>` component responds to changes in the three shared context var
 
 ```tsx
 import { useState } from 'react';
-import { ListPlayer, ListPlayerContext } from 'rea';
+import { ListPlayer, ListPlayerContext } from 'react-playlist-player';
 
 const testListInfo = {/*...*/};
 
@@ -154,7 +154,7 @@ Alternatively, if `<ListPlayer>` is given a `playCallback` function, it will cal
 
 ```tsx
 import { useState } from 'react';
-import { ListPlayer, ListPlayerContext } from 'rea';
+import { ListPlayer, ListPlayerContext } from 'react-playlist-player';
 
 const testListInfo = {/*...*/};
 
