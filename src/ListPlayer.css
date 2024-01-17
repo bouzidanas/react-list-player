@@ -104,13 +104,13 @@ div.track-number .play-icon {
   height: 1.25rem;
 }
 
-.text {
+/* .text {
 
 }
 
 .list-number {
 
-}
+} */
 
 .info-cont {
   display: flex;
@@ -208,14 +208,42 @@ div.meta-artist, div.meta-album, div.meta-cont, div.title-cont {
   display: flex;
   align-items: center;
 }
-
 /* ---------------------------- */
+
+/* INFOCARD ------------------- */
 div.lt-info-card {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: space-between;
+  height: 100%;
+  min-height: fit-content;
+  padding: 1rem/* 16px */;
   transition: padding 0.3s ease-in-out;
 }
 
 div.lt-info-panel {
+  flex: 1 1 0%;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  min-width: 13.9rem/* 222.4px */;
+  max-height: 30rem/* 480px */;
+  padding-bottom: 5rem/* 80px */;
+  padding-left: 0.75rem/* 12px */;
+  padding-right: 0.75rem/* 12px */;
+  padding-top: 0.5rem/* 8px */;
+  transition-property: all;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 500ms;
   animation: fadeIn 0.6s ease-in-out;
+}
+
+/* div.lt-info-title {
+
+} */
+
+h1.lt-info-title-h1 {
+  font-size: 2rem;
 }
 
 div.lt-info-stats {
@@ -224,7 +252,7 @@ div.lt-info-stats {
   gap: 0.25rem;
 }
 
-div.lt-info-stats > span {
+div.lt-info-stats > span, h1.lt-info-title-h1 > span {
   white-space: nowrap;
 }
 

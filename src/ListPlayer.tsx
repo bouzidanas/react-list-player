@@ -397,10 +397,10 @@ const Text = ({ textArray }: { textArray: playerText[] }) => {
 
 export const ListInfoCard = ({ track, info }: { track: track, info: listInfo }) => {
     return (
-        <div className="lt-info-card flex justify-between h-full min-h-fit flex-row-reverse p-4">
-            <div className="lt-info-panel flex flex-col w-full min-w-[13.9rem] max-h-[30rem] flex-1 pb-20 px-3 pt-2 transition-all duration-500 ease-in-out">
+        <div className="lt-info-card">
+            <div className="lt-info-panel">
                 <div className="lt-info-title">
-                    <h1 className="text lt-info-title-h1 text-[2rem]">
+                    <h1 className="text lt-info-title-h1">
                         {
                             info.type === "playlist"
                             ?   <span className="text pure">{info.name}</span>
