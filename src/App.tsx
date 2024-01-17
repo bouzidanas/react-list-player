@@ -5,20 +5,45 @@ import { ListPlayerContext } from './ListPlayerContext';
 // This is just a sample listInfo object, you can use your own
 const testListInfo: listInfo = {
   type: 'playlist',
-  name: 'Liked Songs',
+  name: 'Royalty Free Playlist',
   creationDate: "11/12/2022",
   numTracks: 10,
-  duration: "35 min",
-  imageSrc: "/bird.jpg"
+  duration: "35 min"
 }
 
 // This is just a sample track array, you can use your own
 const testTracks: track[] = [
   {
+    title: [
+        {
+            type: 'text',
+            content: 'Smoke',
+            className: 'title'
+        }
+    ],
+    artist: [
+        {
+            type: 'text',
+            content: 'Oleg Fedak',
+            className: 'artist',
+            link: 'https://pixabay.com/users/soulprodmusic-30064790/'
+        }
+    ],
+    album: [
+        {
+            type: 'text',
+            content: 'SoulProdMusic',
+            className: 'album'
+        }
+    ],
+    duration: "1:58",
+    imageSrc: "https://cdn.pixabay.com/audio/2023/03/19/12-27-22-207_200x200.jpg"
+  },
+  {
       title: [
           {
               type: 'text',
-              content: 'Sos',
+              content: 'My Universe',
               className: 'title'
           },
           {
@@ -30,93 +55,26 @@ const testTracks: track[] = [
       artist: [
           {
               type: 'text',
-              content: 'Timothy Fleet',
+              content: 'Peter Nesterouk',
               className: 'artist',
-              link: 'https://music.youtube.com/channel/UCmGqnW6VmhOV4KW67vhzPCA'
-          },
-          {
-              type: 'text',
-              content: '&'
-          },
-          {
-              type: 'text',
-              content: 'Wayne Murray and company',
-              className: 'artist',
-              link: 'https://music.youtube.com/channel/UCkZXltuX3Rta9OiD-O505xg'
+              link: 'https://pixabay.com/users/nesterouk-34392616/'
           }
       ],
       album: [
           {
               type: 'text',
-              content: 'Vintage Radio: 1980s',
+              content: 'Nesterouk',
               className: 'album'
-          },
-          {
-              type: 'badge',
-              content: 'Explicit',
-              className: 'explicit'
           }
       ],
-      duration: "2:37"
+      duration: "2:27",
+      imageSrc: "https://cdn.pixabay.com/audio/2023/04/24/09-30-22-297_200x200.jpg"
   },
   {
       title: [
           {
               type: 'text',
-              content: 'Fields of Blue',
-              className: 'title'
-          }
-      ],
-      artist: [
-          {
-              type: 'text',
-              content: 'Tennis',
-              className: 'artist'
-          }
-      ],
-      album: [
-          {
-              type: 'text',
-              content: 'Yours Conditionally',
-              className: 'album'
-          }
-      ],
-      duration: "3:29"
-  },
-  {
-      title: [
-          {
-              type: 'text',
-              content: 'Forbidden Doors',
-              className: 'title'
-          }
-      ],
-      artist: [
-          {
-              type: 'text',
-              content: 'Tennis',
-              className: 'artist'
-          }
-      ],
-      album: [
-          {
-              type: 'text',
-              content: 'Forbidden Doors',
-              className: 'album'
-          },
-          {
-              type: 'badge',
-              content: 'Explicit',
-              className: 'explicit'
-          }
-      ],
-      duration: "3:54"
-  },
-  {
-      title: [
-          {
-              type: 'text',
-              content: 'Show Me How',
+              content: 'Good Night',
               className: 'title'
           },
           {
@@ -128,55 +86,87 @@ const testTracks: track[] = [
       artist: [
           {
               type: 'text',
-              content: 'Men I Trust',
-              className: 'artist'
+              content: 'FASS',
+              className: 'artist',
+              link: 'https://pixabay.com/users/fassounds-3433550/',
           }
       ],
       album: [
           {
               type: 'text',
-              content: 'Show Me How',
+              content: 'FASSounds',
               className: 'album'
           }
       ],
-      duration: "3:36"
+      duration: "2:27",
+      imageSrc: "https://cdn.pixabay.com/audio/2023/07/30/13-02-32-179_200x200.jpg"
+  },
+  {
+    title: [
+        {
+            type: 'text',
+            content: 'Tokyo Cafe',
+            className: 'title'
+        }
+    ],
+    artist: [
+        {
+            type: 'text',
+            content: 'TVARI',
+            className: 'artist'
+        }
+    ],
+    album: [
+        {
+            type: 'text',
+            content: 'TVARI',
+            className: 'album'
+        },
+        {
+            type: 'badge',
+            content: 'Explicit',
+            className: 'explicit'
+        }
+    ],
+    duration: "2:33",
+    imageSrc: "https://cdn.pixabay.com/audio/2023/07/22/02-53-18-138_200x200.jpg"
   },
   {
       title: [
           {
               type: 'text',
-              content: 'I Dont know You',
+              content: 'Hear Me',
               className: 'title'
           }
       ],
       artist: [
           {
               type: 'text',
-              content: 'The Marías',
+              content: 'Keyframe Audio ',
               className: 'artist',
-              link: 'https://music.youtube.com/channel/UCVV5M4OEFsKnB9HBhwOhHbA',
+              link: 'https://pixabay.com/users/keyframe_audio-32058364/',
               externalLink: true
           }
       ],
       album: [
           {
               type: 'text',
-              content: 'Superclean, Vol. I',
+              content: 'Seductive Chill Hip Hop Instrumental',
               className: 'album'
           }
       ],
-      duration: "3:30"
+      duration: "2:46",
+      imageSrc: "https://cdn.pixabay.com/audio/2023/01/15/23-41-58-198_200x200.jpg"
   },
   {
       title: [
           {
               type: 'text',
-              content: 'Lady Luck',
+              content: 'Baby Mandala',
               className: 'title'
           }
       ],
       artist: [
-
           {
               type: 'badge',
               content: 'New',
@@ -184,119 +174,124 @@ const testTracks: track[] = [
           },
           {
               type: 'text',
-              content: 'Nature TV',
-              className: 'artist'
+              content: 'Praz Khanal',
+              className: 'artist',
+              link: 'https://pixabay.com/users/prazkhanal-24653570/'
           }
       ],
       album: [
           {
               type: 'text',
-              content: 'Lady Luck EP',
+              content: 'prazkhanal',
               className: 'album'
           }
       ],
-      duration: "3:33"
+      duration: "3:11",
+      imageSrc: "https://cdn.pixabay.com/audio/2023/10/03/03-34-18-650_200x200.jpg"
   },
   {
       title: [
           {
               type: 'text',
-              content: 'Alrighty Aphrodite',
+              content: 'Midnight Forest',
               className: 'title'
           }
       ],
       artist: [
           {
               type: 'text',
-              content: 'Peach Pit',
-              className: 'artist'
+              content: 'Syouki Takahashi',
+              className: 'artist',
+              link: 'https://pixabay.com/users/syouki_takahashi-3820204/'
           }
       ],
       album: [
           {
               type: 'text',
-              content: 'Being So Normal',
+              content: 'Royalty Free Collection',
               className: 'album'
           }
       ],
-      duration: "3:28"
+      duration: "2:48",
+      imageSrc: "https://cdn.pixabay.com/audio/2024/01/05/01-14-43-61_200x200.jpg"
   },
   {
       title: [
           {
               type: 'text',
-              content: 'The Less I Know The Better',
+              content: 'Separation',
               className: 'title'
           }
       ],
       artist: [
           {
               type: 'text',
-              content: 'Tame Impala',
-              className: 'artist'
+              content: 'William King',
+              className: 'artist',
+              link: 'https://pixabay.com/users/william_king-33448498/'
           }
       ],
       album: [
           {
               type: 'text',
-              content: 'Currents',
+              content: 'Royalty Free Music',
               className: 'album'
           }
       ],
-      duration: "3:39"
+      duration: "2:19",
+      imageSrc: "https://cdn.pixabay.com/audio/2024/01/10/15-04-26-897_200x200.jpg"
   },
   {
       title: [
           {
               type: 'text',
-              content: 'Save a Prayer (2009 Remaster)',
+              content: 'Drive Breakbeat',
               className: 'title'
           }
       ],
       artist: [
           {
               type: 'text',
-              content: 'Duran Duran',
-              className: 'artist'
+              content: 'Zakhar Dziubenko',
+              className: 'artist',
+              link: 'https://pixabay.com/users/rockot-1947599/'
           }
       ],
       album: [
           {
               type: 'text',
-              content: "Rio (Collector's Edition)",
+              content: "Rockot",
               className: 'album'
-          },
-          {
-              type: 'badge',
-              content: 'Explicit',
-              className: 'explicit'
           }
       ],
-      duration: "12:00:37"
+      duration: "1:49",
+      imageSrc: "https://cdn.pixabay.com/audio/2023/10/24/15-08-22-671_200x200.jpg"
   },
   {
       title: [
           {
               type: 'text',
-              content: "Ladies Don't Play Guitar",
+              content: "Glossy",
               className: 'title'
           }
       ],
       artist: [
           {
               type: 'text',
-              content: 'Tennis',
-              className: 'artist'
+              content: 'Yrii Semchyshyn',
+              className: 'artist',
+              link: 'https://pixabay.com/users/coma-media-24399569/'
           }
       ],
       album: [
           {
               type: 'text',
-              content: 'Yours Conditionally',
+              content: 'Coma Media',
               className: 'album'
           }
       ],
-      duration: "13:29"
+      duration: "1:33",
+      imageSrc: "https://cdn.pixabay.com/photo/2018/07/14/22/53/currants-3538617_1280.jpg"
   }
 ]
 
@@ -313,7 +308,7 @@ function App() {
   const audioRef = useRef<HTMLAudioElement>(null);
 
   const durationIncrement = 1000;
-  const audioSrcs = ["/audio/Sos.mp3", "/audio/Fields of Blue.mp3", "/audio/Forbidden Doors.mp3", "/audio/Show Me How.mp3", "/audio/I Dont Know You.mp3"];
+  const audioSrcs = ["/free-audio/tokyo cafe.mp3", "/free-audio/my universe.mp3", "/free-audio/smoke.mp3", "/free-audio/good night.mp3", "/free-audio/hear me.mp3", "/free-audio/baby mandala.mp3", "/free-audio/midnight forest.mp3", "/free-audio/separation.mp3", "/free-audio/drive breakbeat.mp3", "/free-audio/glossy.mp3"];
 
   const handleOnPlay = (index:number, resume:boolean) => {
     if(index === selectedTrack && !resume) {

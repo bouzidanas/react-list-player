@@ -623,7 +623,7 @@ export const ListPlayer = ({ tracks = testTracks, listInfo = testListInfo, prevB
                 {
                     noHeader
                         ?   null
-                        :   <Header info={listInfo} track={tracks[selectedTrack]} snapTo={playerMode === "tiny" ? "tiny" : (playerMode === "small" ? "small" : (playerMode === "medium" ? "medium" : (playerMode === "large" ? "large" : (playerMode === undefined ? undefined : playerMode)))) } noControls={noControls} muted={isMuted} playing={isPlaying} muteCallback={mute} playCallback={playPause} nextCallback={() => setSelectedTrack((selectedTrack + 1) % tracks.length)} prevCallback={() => handlePreviousClick()}>
+                        :   <Header info={listInfo} track={tracks[selectedTrack === -1 ? 0 : selectedTrack]} snapTo={playerMode === "tiny" ? "tiny" : (playerMode === "small" ? "small" : (playerMode === "medium" ? "medium" : (playerMode === "large" ? "large" : (playerMode === undefined ? undefined : playerMode)))) } noControls={noControls} muted={isMuted} playing={isPlaying} muteCallback={mute} playCallback={playPause} nextCallback={() => setSelectedTrack((selectedTrack + 1) % tracks.length)} prevCallback={() => handlePreviousClick()}>
                                 {children}
                             </Header>
                 }
