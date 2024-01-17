@@ -37,7 +37,7 @@ const testTracks: track[] = [
         }
     ],
     duration: "1:58",
-    // imageSrc: "https://cdn.pixabay.com/audio/2023/03/19/12-27-22-207_200x200.jpg"
+    imageSrc: "https://cdn.pixabay.com/audio/2023/03/19/12-27-22-207_200x200.jpg"
   },
   {
       title: [

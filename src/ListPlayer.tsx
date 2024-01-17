@@ -453,38 +453,38 @@ export const ListInfoCard = ({ track, info }: { track: track, info: listInfo }) 
 export const Header = ({ info = placeholderListInfo, track, muted = false, playing = false, noControls = false, snapTo = "large", nextCallback, prevCallback, playCallback, muteCallback, children }: { info: listInfo, track: track, muted?: boolean, playing?: boolean, noControls?: boolean, snapTo?: string, nextCallback?: () => void, prevCallback?: () => void, playCallback?: (play: boolean) => void, muteCallback?: (mute: boolean) => void, children?: React.ReactNode }) => {
     const height = snapTo === "tiny" ? "92px" : (snapTo === "small" ? "11.65rem" : (snapTo === "medium" ? "16rem" : (snapTo === "large" ? "21.35rem" : snapTo)));
     return (
-        <div className="list-header shadow-lg relative w-full min-h-[5.75rem] overflow-hidden " style={{ maxHeight: height, height: height }}>
+        <div className="list-header" style={{ maxHeight: height, height: height }}>
             {
                 children 
-                ?   <div className="lh-children-cont absolute w-full h-full">
+                ?   <div className="lh-children-cont">
                         {children}
                     </div>
-                :   <div className="lh-children-cont lh-listinfocard-cont absolute w-full h-full p-[0.64rem]">
+                :   <div className="lh-children-cont lh-listinfocard-cont">
                         <ListInfoCard track={track} info={info} />
                     </div>
             }
             {
                 noControls
                 ?   null
-                :   <div className="controller-panel absolute bottom-0 left-auto right-0 m-[0.6rem] w-fit h-fit p-2 flex justify-center items-center rounded-lg backdrop-blur-xl bg-black/10 transition-all duration-700 ease-in-out">
-                        <button className="btn back-btn btn-primary mr-3 ml-2 opacity-75 hover:opacity-100 order-4" onClick={() => muteCallback && muteCallback(!muted)}>
+                :   <div className="controller-panel">
+                        <button className="btn mute-btn btn-primary" onClick={() => muteCallback && muteCallback(!muted)}>
                             {
                                 muted 
-                                ?   <HiMiniSpeakerXMark className="play-icon h-7 w-7" />
-                                :   <HiMiniSpeakerWave className="play-icon h-7 w-7" />
+                                ?   <HiMiniSpeakerXMark className="action-icon mute-icon" />
+                                :   <HiMiniSpeakerWave className="action-icon unmute-icon" />
                             }   
                         </button>
-                        <button className="btn back-btn btn-primary opacity-75 hover:opacity-100 order-2" onClick={prevCallback}>
-                            <RiSkipBackMiniFill className="play-icon h-9 w-9" />
+                        <button className="btn back-btn btn-primary" onClick={prevCallback}>
+                            <RiSkipBackMiniFill className="action-icon prev-icon" />
                         </button>
-                        <button className="btn forward-btn btn-primary mr-3 opacity-75 hover:opacity-100 order-3" onClick={nextCallback}>
-                            <RiSkipForwardMiniFill className="play-icon h-9 w-9" />
+                        <button className="btn forward-btn btn-primary" onClick={nextCallback}>
+                            <RiSkipForwardMiniFill className="action-icon next-icon" />
                         </button>
-                        <button className="btn play-btn mx-1 opacity-75 hover:opacity-100 order-1 " onClick={() => playCallback && playCallback(!playing)}>
+                        <button className="btn play-btn" onClick={() => playCallback && playCallback(!playing)}>
                             {
                                 playing 
-                                ?   <HiOutlinePauseCircle className="play-icon h-14 w-14" />
-                                :   <HiPlayCircle className="play-icon h-14 w-14" />
+                                ?   <HiOutlinePauseCircle className="action-icon pause-icon" />
+                                :   <HiPlayCircle className="action-icon play-icon" />
                             }
                         </button>
                     </div>
@@ -501,14 +501,14 @@ const Track = ({ track, trackNumber, selected = false, playIcon = true, onClick 
                 {
                     selected
                     ?   playIcon
-                        ?   <HiMiniPlay className="play-icon" style={{ display: "unset" }} />
-                        :   <HiMiniPause className="play-icon" style={{ display: "unset" }} />
+                        ?   <HiMiniPlay className="action-icon" style={{ display: "unset" }} />
+                        :   <HiMiniPause className="action-icon" style={{ display: "unset" }} />
                     :   trackNumber
                         ?   <>
                                 <span className="text number list-number">{trackNumber}</span>
-                                <HiMiniPlay className="play-icon" />
+                                <HiMiniPlay className="action-icon" />
                             </>
-                        :   <HiMiniPlay className="play-icon" />
+                        :   <HiMiniPlay className="action-icon" />
                 }
             </div>
             <div className="info-cont">
@@ -614,8 +614,6 @@ export const ListPlayer = ({ tracks = testTracks, listInfo = testListInfo, prevB
             return () => clearTimeout(timer);
         }
     }, [timerTriggerFlag, prevBufferTime]);
-
-    // const classNamePr = "list-player" + (playerMode === " tinyplayer" || playerMode === " miniplayer") ? playerMode : "";
 
     return (
         <>
