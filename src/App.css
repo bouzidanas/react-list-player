@@ -17,7 +17,7 @@ div.app {
 div.explanitory-text, div.listplayer-cont {
     display: flex;
     justify-content: center;
-    align-items: start;
+    align-items: flex-start;
 }
 
 div.explanitory-text {
