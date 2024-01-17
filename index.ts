@@ -1,8 +1,7 @@
 import { ListPlayer, ListInfoCard, Header } from "./src/ListPlayer";
 import type { track, listInfo } from "./src/ListPlayer";
 
-import { App } from "./src/App";
+import { Demo } from "./src/Demo";
 
 
-export {App, ListPlayer, ListInfoCard, Header };
-export type { track, listInfo };
+export {Demo, ListPlayer, ListInfoCard, Header, track, listInfo };

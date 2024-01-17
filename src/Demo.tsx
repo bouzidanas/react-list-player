@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { ListPlayer, track, listInfo } from './ListPlayer'
 import { ListPlayerContext } from './ListPlayerContext';
 
-import './App.css'
+import './Demo.css'
 
 // This is just a sample listInfo object, you can use your own
 const testListInfo: listInfo = {
@@ -297,7 +297,7 @@ const testTracks: track[] = [
   }
 ]
 
-export const App = () => {
+export const Demo = () => {
   const [selectedTrack, setSelectedTrack] = useState(-1);
   const [isPlaying, setIsPlaying] = useState(false);
   const [isMuted, setIsMuted] = useState(false);
