@@ -2,6 +2,8 @@ import { useEffect, useRef, useState } from 'react';
 import { ListPlayer, track, listInfo } from './ListPlayer'
 import { ListPlayerContext } from './ListPlayerContext';
 
+import './App.css'
+
 // This is just a sample listInfo object, you can use your own
 const testListInfo: listInfo = {
   type: 'playlist',
@@ -450,15 +452,15 @@ function App() {
 
   return (
     <ListPlayerContext.Provider value={{selectedTrack, setSelectedTrack, isPlaying, setIsPlaying, isMuted, setIsMuted}}>
-      <div className="app w-full h-full max-h-[95vh] flex flex-col justify-end items-center px-8 pb-14 gap-6">
-        <div key={explanitoryText} className=" explanitory-text text-4xl text-center p-6 px-6 flex justify-center items-start" style={{animation: "fadeIn 1s ease-in-out"}}>
+      <div className="app">
+        <div key={explanitoryText} className="explanitory-text" style={{animation: "fadeIn 1s ease-in-out"}}>
           {explanitoryText}
         </div>
-        <div className='listplayer-cont w-full h-[70%] flex justify-center items-start px-0 transition-all duration-500 ease-in-out' style={forceSmallWidth ? {paddingLeft: "20%", paddingRight: "20%"} : undefined}>
+        <div className='listplayer-cont' style={forceSmallWidth ? {paddingLeft: "20%", paddingRight: "20%"} : undefined}>
           <ListPlayer tracks={testTracks} listInfo={testListInfo} playerMode={playerMode} noControls={replaceHeader} noHeader={headLess} playCallback={handleOnPlay} pauseCallback={handleOnPause}>
             {
               replaceHeader 
-              ? <div className="absolute w-full h-full flex justify-center items-center text-4xl text-center p-12" style={{animation: "fadeIn 1s ease-in-out", background: "repeating-linear-gradient( 45deg, #22222255, #22222255 10px, #22222200 10px, #22222200 20px)"}}>
+              ? <div className="custom-hdr-placeholder" style={{animation: "fadeIn 1s ease-in-out", background: "repeating-linear-gradient( 45deg, #22222255, #22222255 10px, #22222200 10px, #22222200 20px)"}}>
                   [your custom header here]
                 </div>
               : undefined
