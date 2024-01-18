@@ -548,7 +548,7 @@ const Track = ({ track, trackNumber, selected = false, playIcon = true, onClick 
 }
 
 // TODO: Make tracks and listInfo mandatory props
-export const ListPlayer = ({ tracks = testTracks, listInfo = testListInfo, prevBufferTime = 1500, playerMode, noControls = false, noHeader = false, loop=false, playCallback, pauseCallback, muteCallback, children }: { tracks?: track[], listInfo?: listInfo, prevBufferTime?: number, playerMode?: string, noControls?: boolean, noHeader?: boolean, loop?: boolean, playCallback?: (trackNumber: number, resume: boolean) => void, pauseCallback?: () => void, muteCallback?: (mute: boolean) => void, children?: React.ReactNode }) => {
+export const ListPlayer = ({ tracks = testTracks, listInfo = testListInfo, prevBufferTime = 1500, playerMode, noControls = false, noHeader = false, loop = false, continueOn=false, playCallback, pauseCallback, muteCallback, children }: { tracks?: track[], listInfo?: listInfo, prevBufferTime?: number, playerMode?: string, noControls?: boolean, noHeader?: boolean, loop?: boolean, continueOn?: boolean, playCallback?: (trackNumber: number, resume: boolean) => void, pauseCallback?: () => void, muteCallback?: (mute: boolean) => void, children?: React.ReactNode }) => {
     const [timerTriggerFlag, setTimerTriggerFlag] = useState(false);
 
     const { selectedTrack, setSelectedTrack, isPlaying, setIsPlaying, isMuted, setIsMuted } = useContext(ListPlayerContext);
@@ -606,7 +606,9 @@ export const ListPlayer = ({ tracks = testTracks, listInfo = testListInfo, prevB
 
     const handleNextClick = () => {
         (!loop) && selectedTrack >= tracks.length - 1
-        ?   setSelectedTrack((selectedTrack + 1))
+        ?   continueOn
+            ?   setSelectedTrack((selectedTrack + 1))
+            :   null
         :   setSelectedTrack((selectedTrack + 1) % tracks.length)
     }
 
