@@ -97,9 +97,11 @@ span.number {
   opacity: var(--lp-text-op-2);
 }
 
-div.track-number {
+.list-player div.track-number {
   display: flex;
   justify-content: center;
+  align-items: center;
+  height: 27px/*has to be set to 27px so that this div doesnt change height when the action-icon is displayed */;
   min-width: 2rem;
 }
 
@@ -223,8 +225,6 @@ div.lh-children-cont {
   width: 100%;
   height: 100%;
 }
-
-
 
 div.controller-panel {
   --tw-backdrop-blur: blur(24px);
