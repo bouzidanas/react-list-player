@@ -1,7 +1,16 @@
 import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react-swc'
+import { resolve } from 'path';
+import dts from 'vite-plugin-dts';
+import react from '@vitejs/plugin-react-swc';
 
-// https://vitejs.dev/config/
+// https://vitejs.dev/guide/build.html#library-mode
 export default defineConfig({
-  plugins: [react()],
-})
+  build: {
+    lib: {
+      entry: resolve(__dirname, 'src/index.ts'),
+      name: 'rpp',
+      fileName: 'rpp',
+    },
+  },
+  plugins: [dts()],
+});
