@@ -183,7 +183,7 @@ div.list-player *, :before, :after {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 27px;
+  height: 27px/*has to be set to 27px so that this div doesnt change height when the action-icon is displayed */;
   min-width: 2rem;
 }
 
@@ -308,9 +308,10 @@ block */
   height: 100%;
 }
 
+
 .list-player div.controller-panel {
-  --tw-backdrop-blur: blur(24px);
-  backdrop-filter: var(--tw-backdrop-blur);
+  --lp-backdrop-blur: blur(24px);
+  backdrop-filter: var(--lp-backdrop-blur);
   background-color: rgb(0 0 0 / 0.1);
   position: absolute;
   bottom: 0px;
