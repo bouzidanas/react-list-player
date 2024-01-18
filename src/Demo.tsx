@@ -480,7 +480,7 @@ export const Demo = () => {
       />
       <button 
         className="skip-intro" 
-        onClick={() => { setExplanitoryText("react-playlist-player"); setPlayerMode("large"); setHeadLess(false); setReplaceHeader(false); setForceSmallWidth(false); setIntro(false); }}
+        onClick={() => { setExplanitoryText("react-playlist-player"); setPlayerMode("large"); setHeadLess(false); setReplaceHeader(false); setForceSmallWidth(false); setIntro(false);}}
       >
       SKIP INTRO
       </button>
