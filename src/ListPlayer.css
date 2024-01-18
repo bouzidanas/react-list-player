@@ -31,6 +31,51 @@ div.list-player *, :before, :after {
   border-color: #e5e7eb;
 }
 
+/* SCROLLBARS ----------------- */
+/* Firefox */
+div.list-player * {
+  scrollbar-width: thin;
+  scrollbar-color: #ffffff44 transparent;
+}
+
+/* Chrome, Edge, and Safari */
+div.list-player *::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
+
+div.list-player *::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+div.list-player *::-webkit-scrollbar-thumb {
+  background-color: #ffffff44;
+  border-radius: 10px;
+  border: 0px solid #ffffff44;
+}
+
+div.list-player *::-webkit-scrollbar-thumb:hover {
+  background-color: #ffffff88;
+}
+
+@media (prefers-color-scheme: dark) {
+  div.list-player *::-webkit-scrollbar-thumb {
+    background-color: #00000028;
+    border-radius: 10px;
+    border: 0px solid #00000028;
+  }
+  
+  div.list-player *::-webkit-scrollbar-thumb:hover {
+    background-color: #00000055;
+  }
+
+  /* Firefox */
+  div.list-player * {
+    scrollbar-width: thin;
+    scrollbar-color: #00000028 transparent;
+  }
+}
+
 .list-player h1, .list-player h2, .list-player h3, .list-player h4, .list-player h5, .list-player h6 {
   font-size: inherit;
   font-weight: inherit;
