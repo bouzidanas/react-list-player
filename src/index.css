@@ -80,12 +80,12 @@ body {
 
 button.skip-intro {
   position: absolute;
-  bottom: 2rem;
-  right: 2.5rem;
+  bottom: -1rem;
+  right: 1.25rem;
+  font-size: 1.1rem;
   background-color: transparent;
   border: none;
   color: #ffffff;
-  font-size: 1.2rem;
   cursor: pointer;
   opacity: 0.5;
 }
@@ -141,6 +141,12 @@ button.skip-intro:hover {
   }
   #root .app .listplayer-cont {
     height: 70%;
+  }
+
+  #root .skip-intro {
+    bottom: 2rem;
+    right: 2.5rem;
+    font-size: 1.2rem;
   }
 }
 
