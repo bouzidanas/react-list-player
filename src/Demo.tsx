@@ -308,7 +308,7 @@ export const Demo = () => {
   const [forceSmallWidth, setForceSmallWidth] = useState(false);
   const [replaceHeader, setReplaceHeader] = useState(false);
   const [headLess, setHeadLess] = useState(false);
-  const [intro, setIntro] = useState(true);
+  const [intro, setIntro] = useState(!skipIntroduction);
 
   const audioRef = useRef<HTMLAudioElement>(null);
 
