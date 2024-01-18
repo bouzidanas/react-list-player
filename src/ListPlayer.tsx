@@ -541,17 +541,16 @@ const Track = ({ track, trackNumber, selected = false, playIcon = true, onClick 
 }
 
 // TODO: Make tracks and listInfo mandatory props
-export const ListPlayer = ({ tracks = testTracks, listInfo = testListInfo, prevBufferTime = 1500, playerMode, noControls = false, noHeader = false, playCallback, pauseCallback, muteCallback, children }: { tracks?: track[], listInfo?: listInfo, prevBufferTime?: number, playerMode?: string, noControls?: boolean, noHeader?: boolean, playCallback?: (trackNumber: number, resume: boolean) => void, pauseCallback?: () => void, muteCallback?: (mute: boolean) => void, children?: React.ReactNode }) => {
+export const ListPlayer = ({ tracks = testTracks, listInfo = testListInfo, prevBufferTime = 1500, playerMode, noControls = false, noHeader = false, loop=false, playCallback, pauseCallback, muteCallback, children }: { tracks?: track[], listInfo?: listInfo, prevBufferTime?: number, playerMode?: string, noControls?: boolean, noHeader?: boolean, loop?: boolean, playCallback?: (trackNumber: number, resume: boolean) => void, pauseCallback?: () => void, muteCallback?: (mute: boolean) => void, children?: React.ReactNode }) => {
     const [timerTriggerFlag, setTimerTriggerFlag] = useState(false);
 
     const { selectedTrack, setSelectedTrack, isPlaying, setIsPlaying, isMuted, setIsMuted } = useContext(ListPlayerContext);
 
     const listBodyRef = useRef<HTMLDivElement>(null);
-
     const allowPrevious = useRef(true);
     const allowScrollIntoView = useRef(true);
 
-    // console.log("rendering");
+    console.log("selectedTrack: ", selectedTrack)
 
     const play = (resume = true) => {
         setIsPlaying(true);
@@ -583,30 +582,41 @@ export const ListPlayer = ({ tracks = testTracks, listInfo = testListInfo, prevB
     }
 
     const handleTrackClick = (index: number) => {
-        index === selectedTrack ? playPause(!isPlaying) : allowScrollIntoView.current = false, setSelectedTrack(index);
+        index === selectedTrack 
+        ?   playPause(!isPlaying) 
+        :   allowScrollIntoView.current = false, setSelectedTrack(index);
     }
 
     const handlePreviousClick = () => {
-        allowPrevious.current || !isPlaying ? setSelectedTrack((selectedTrack - 1 + tracks.length) % tracks.length) : play(false)
+        allowPrevious.current || !isPlaying 
+        ?   (!loop)
+            ?   selectedTrack === 0 
+                ?   null
+                :   setSelectedTrack(selectedTrack - 1)
+            :   setSelectedTrack((selectedTrack - 1 + tracks.length) % tracks.length) 
+        :   play(false)
+    }
+
+    const handleNextClick = () => {
+        (!loop) && selectedTrack >= tracks.length - 1
+        ?   setSelectedTrack((selectedTrack + 1))
+        :   setSelectedTrack((selectedTrack + 1) % tracks.length)
     }
 
     const scrollTrackIntoView = (index: number) => {
-        const track = listBodyRef.current?.children[index] as HTMLDivElement;
-        track.scrollIntoView({ behavior: "smooth", block: "center" });
+        const track = listBodyRef.current?.children[index] as HTMLDivElement | null;
+        track?.scrollIntoView({ behavior: "smooth", block: "center" });
     }
 
     useEffect(() => {
         if (selectedTrack === -1) return;
-        // console.log("playing track after change in selectedTrack");
         allowScrollIntoView.current && !(playerMode === "tinyplayer" || playerMode === "miniplayer") && scrollTrackIntoView(selectedTrack);
         allowScrollIntoView.current = true;
         play(false);
     }, [selectedTrack]);
 
     useEffect(() => {
-        // console.log("entered timer useEffect");
         if (isPlaying) {
-            // console.log("useEffect: new timer");
             const timer = setTimeout(() => {
                 allowPrevious.current = false;
             }, prevBufferTime);
@@ -621,7 +631,7 @@ export const ListPlayer = ({ tracks = testTracks, listInfo = testListInfo, prevB
                 {
                     noHeader
                         ?   null
-                        :   <Header info={listInfo} track={tracks[selectedTrack === -1 ? 0 : selectedTrack]} snapTo={playerMode === "tiny" ? "tiny" : (playerMode === "small" ? "small" : (playerMode === "medium" ? "medium" : (playerMode === "large" ? "large" : (playerMode === undefined ? undefined : playerMode)))) } noControls={noControls} muted={isMuted} playing={isPlaying} muteCallback={mute} playCallback={playPause} nextCallback={() => setSelectedTrack((selectedTrack + 1) % tracks.length)} prevCallback={() => handlePreviousClick()}>
+                        :   <Header info={listInfo} track={tracks[selectedTrack === -1 ? 0 : selectedTrack]} snapTo={playerMode === "tiny" ? "tiny" : (playerMode === "small" ? "small" : (playerMode === "medium" ? "medium" : (playerMode === "large" ? "large" : (playerMode === undefined ? undefined : playerMode)))) } noControls={noControls} muted={isMuted} playing={isPlaying} muteCallback={mute} playCallback={playPause} nextCallback={handleNextClick} prevCallback={handlePreviousClick}>
                                 {children}
                             </Header>
                 }

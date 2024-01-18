@@ -297,6 +297,8 @@ const testTracks: track[] = [
   }
 ]
 
+const skipIntroduction = true;
+
 export const Demo = () => {
   const [selectedTrack, setSelectedTrack] = useState(-1);
   const [isPlaying, setIsPlaying] = useState(false);
@@ -326,6 +328,9 @@ export const Demo = () => {
   }
 
   useEffect(() => {
+    if(skipIntroduction) {
+      return;
+    }
     const timer = setTimeout(() => {
       setExplanitoryText("a flexible react playlist controller");
     }, 3*durationIncrement);
@@ -469,7 +474,7 @@ export const Demo = () => {
         </div>
       </div>
       <audio ref={audioRef} 
-        src={audioSrcs[selectedTrack%audioSrcs.length]}
+        src={selectedTrack < audioSrcs.length ? audioSrcs[selectedTrack%audioSrcs.length] : undefined}
         muted={isMuted} 
         onEnded={() => {setSelectedTrack(selectedTrack + 1)}}
       />
