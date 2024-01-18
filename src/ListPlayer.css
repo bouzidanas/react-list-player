@@ -517,12 +517,12 @@ div.lt-info-placeholder {
 }
 
 div.lt-info-placeholder > span {
-  transition: font-size 0.2s linear, line-height 0.2s linear;
+  font-size: 3.5rem;
+  transition: font-size 0.2s linear;
 }
 
 @container art (max-width: 60px) {
   div.lt-info-placeholder > span {
-    font-size: 1.2rem;
-    line-height: 1.4rem;
+    font-size: 2rem;
   }
 }

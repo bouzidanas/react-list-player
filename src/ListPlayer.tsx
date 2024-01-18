@@ -1,6 +1,7 @@
 import React, { CSSProperties, useContext, useEffect, useRef, useState } from "react";
 import { HiMiniPlay, HiMiniPause, HiPlayCircle, HiMiniSpeakerWave, HiMiniSpeakerXMark, HiOutlinePauseCircle } from "react-icons/hi2";
 import { RiSkipForwardMiniFill, RiSkipBackMiniFill } from "react-icons/ri";
+import { CgMusicNote } from "react-icons/cg";
 import { ListPlayerContext } from "./ListPlayerContext";
 
 import './ListPlayer.css'
@@ -441,7 +442,7 @@ export const ListInfoCard = ({ track, info }: { track: track, info: listInfo }) 
                 :   <div className="lt-info-art-placeholder-cont">
                         <div className="lt-info-placeholder" style={{animation: "fadeIn 1s ease-in-out", background: "repeating-linear-gradient( 45deg, #22222266, #22222266 6px, #22222200 6px, #22222200 12px)"}}>
                             <span>
-                            no cover
+                                <CgMusicNote className="lt-info-placeholder-icon" />
                             </span>
                         </div>
                     </div>
@@ -450,7 +451,34 @@ export const ListInfoCard = ({ track, info }: { track: track, info: listInfo }) 
     )
 }
 
-export const Header = ({ info = placeholderListInfo, track, muted = false, playing = false, noControls = false, snapTo = "large", nextCallback, prevCallback, playCallback, muteCallback, children }: { info: listInfo, track: track, muted?: boolean, playing?: boolean, noControls?: boolean, snapTo?: string, nextCallback?: () => void, prevCallback?: () => void, playCallback?: (play: boolean) => void, muteCallback?: (mute: boolean) => void, children?: React.ReactNode }) => {
+export const ListControls = ({ muted = false, playing = false, nextCallback, prevCallback, playCallback, muteCallback }: { track: track, muted?: boolean, playing?: boolean, noControls?: boolean, nextCallback?: () => void, prevCallback?: () => void, playCallback?: (play: boolean) => void, muteCallback?: (mute: boolean) => void }) => {
+    return (
+        <div className="controller-panel">
+            <button className="btn mute-btn btn-primary" onClick={() => muteCallback && muteCallback(!muted)}>
+                {
+                    muted 
+                    ?   <HiMiniSpeakerXMark className="action-icon mute-icon" />
+                    :   <HiMiniSpeakerWave className="action-icon unmute-icon" />
+                }   
+            </button>
+            <button className="btn back-btn btn-primary" onClick={prevCallback}>
+                <RiSkipBackMiniFill className="action-icon prev-icon" />
+            </button>
+            <button className="btn forward-btn btn-primary" onClick={nextCallback}>
+                <RiSkipForwardMiniFill className="action-icon next-icon" />
+            </button>
+            <button className="btn play-btn" onClick={() => playCallback && playCallback(!playing)}>
+                {
+                    playing 
+                    ?   <HiOutlinePauseCircle className="action-icon pause-icon" />
+                    :   <HiPlayCircle className="action-icon play-icon" />
+                }
+            </button>
+        </div>
+    )
+}
+
+export const ListHeader = ({ info = placeholderListInfo, track, muted = false, playing = false, noControls = false, snapTo = "large", nextCallback, prevCallback, playCallback, muteCallback, children }: { info: listInfo, track: track, muted?: boolean, playing?: boolean, noControls?: boolean, snapTo?: string, nextCallback?: () => void, prevCallback?: () => void, playCallback?: (play: boolean) => void, muteCallback?: (mute: boolean) => void, children?: React.ReactNode }) => {
     const height = snapTo === "tiny" ? "92px" : (snapTo === "small" ? "11.65rem" : (snapTo === "medium" ? "16rem" : (snapTo === "large" ? "21.35rem" : snapTo)));
     return (
         <div className="list-header" style={{ maxHeight: height, height: height }}>
@@ -466,28 +494,7 @@ export const Header = ({ info = placeholderListInfo, track, muted = false, playi
             {
                 noControls
                 ?   null
-                :   <div className="controller-panel">
-                        <button className="btn mute-btn btn-primary" onClick={() => muteCallback && muteCallback(!muted)}>
-                            {
-                                muted 
-                                ?   <HiMiniSpeakerXMark className="action-icon mute-icon" />
-                                :   <HiMiniSpeakerWave className="action-icon unmute-icon" />
-                            }   
-                        </button>
-                        <button className="btn back-btn btn-primary" onClick={prevCallback}>
-                            <RiSkipBackMiniFill className="action-icon prev-icon" />
-                        </button>
-                        <button className="btn forward-btn btn-primary" onClick={nextCallback}>
-                            <RiSkipForwardMiniFill className="action-icon next-icon" />
-                        </button>
-                        <button className="btn play-btn" onClick={() => playCallback && playCallback(!playing)}>
-                            {
-                                playing 
-                                ?   <HiOutlinePauseCircle className="action-icon pause-icon" />
-                                :   <HiPlayCircle className="action-icon play-icon" />
-                            }
-                        </button>
-                    </div>
+                :   <ListControls track={track} muted={muted} playing={playing} nextCallback={nextCallback} prevCallback={prevCallback} playCallback={playCallback} muteCallback={muteCallback} />
             }
         </div>
     );
@@ -631,9 +638,9 @@ export const ListPlayer = ({ tracks = testTracks, listInfo = testListInfo, prevB
                 {
                     noHeader
                         ?   null
-                        :   <Header info={listInfo} track={tracks[selectedTrack === -1 ? 0 : selectedTrack]} snapTo={playerMode === "tiny" ? "tiny" : (playerMode === "small" ? "small" : (playerMode === "medium" ? "medium" : (playerMode === "large" ? "large" : (playerMode === undefined ? undefined : playerMode)))) } noControls={noControls} muted={isMuted} playing={isPlaying} muteCallback={mute} playCallback={playPause} nextCallback={handleNextClick} prevCallback={handlePreviousClick}>
+                        :   <ListHeader info={listInfo} track={tracks[selectedTrack === -1 ? 0 : selectedTrack]} snapTo={playerMode === "tiny" ? "tiny" : (playerMode === "small" ? "small" : (playerMode === "medium" ? "medium" : (playerMode === "large" ? "large" : (playerMode === undefined ? undefined : playerMode)))) } noControls={noControls} muted={isMuted} playing={isPlaying} muteCallback={mute} playCallback={playPause} nextCallback={handleNextClick} prevCallback={handlePreviousClick}>
                                 {children}
-                            </Header>
+                            </ListHeader>
                 }
                 <div ref={listBodyRef} className="list-body">
                     {
