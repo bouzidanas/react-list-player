@@ -64,6 +64,17 @@ body {
   background-color: #b5838d;
 }
 
+button.skip-intro {
+  position: absolute;
+  bottom: 2rem;
+  right: 2.5rem;
+  background-color: transparent;
+  border: none;
+  color: #ffffff;
+  font-size: 1.2rem;
+  cursor: pointer;
+}
+
 /* SCROLLBARS ----------------- */
 /* Firefox */
 * {

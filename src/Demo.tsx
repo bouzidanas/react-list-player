@@ -297,7 +297,7 @@ const testTracks: track[] = [
   }
 ]
 
-const skipIntroduction = true;
+const skipIntroduction = false;
 
 export const Demo = () => {
   const [selectedTrack, setSelectedTrack] = useState(-1);
@@ -308,6 +308,7 @@ export const Demo = () => {
   const [forceSmallWidth, setForceSmallWidth] = useState(false);
   const [replaceHeader, setReplaceHeader] = useState(false);
   const [headLess, setHeadLess] = useState(false);
+  const [intro, setIntro] = useState(true);
 
   const audioRef = useRef<HTMLAudioElement>(null);
 
@@ -328,9 +329,8 @@ export const Demo = () => {
   }
 
   useEffect(() => {
-    if(skipIntroduction) {
-      return;
-    }
+    if(skipIntroduction || !intro ) return;
+
     const timer = setTimeout(() => {
       setExplanitoryText("a flexible react playlist controller");
     }, 3*durationIncrement);
@@ -453,7 +453,7 @@ export const Demo = () => {
       clearTimeout(timer17);
       clearTimeout(timer18);
     }
-  }, []);
+  }, [intro]);
 
   return (
     <ListPlayerContext.Provider value={{selectedTrack, setSelectedTrack, isPlaying, setIsPlaying, isMuted, setIsMuted}}>
@@ -478,6 +478,12 @@ export const Demo = () => {
         muted={isMuted} 
         onEnded={() => {setSelectedTrack(selectedTrack + 1)}}
       />
+      <button 
+        className="skip-intro" 
+        onClick={() => { setExplanitoryText("react-playlist-player"); setPlayerMode("large"); setHeadLess(false); setReplaceHeader(false); setForceSmallWidth(false); setIntro(false); }}
+      >
+      SKIP INTRO
+      </button>
     </ListPlayerContext.Provider>
   )
 }
