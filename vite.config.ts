@@ -7,7 +7,7 @@ import react from '@vitejs/plugin-react-swc';
 export default defineConfig({
   build: {
     lib: {
-      entry: resolve(__dirname, 'src/index.ts'),
+      entry: resolve(__dirname, 'index.ts'),
       name: 'rpp',
       fileName: 'rpp',
     },

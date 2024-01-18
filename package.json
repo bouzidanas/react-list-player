@@ -32,6 +32,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "clean": "^4.0.2",
     "react-icons": "^5.0.1"
   },
   "devDependencies": {
