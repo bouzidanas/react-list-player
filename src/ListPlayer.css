@@ -17,11 +17,13 @@ div.list-player *, :before, :after {
   --lp-pad-1: .3rem;
   --lp-pad-2: .6rem;
   --lp-text-op-2: .6;
+  --lp-text-color: #ffffffde;
+
   font-family: Inter,system-ui,Avenir,Helvetica,Arial,sans-serif;
   line-height: 1.5;
   font-weight: 400;
   color-scheme: light dark;
-  color: #ffffffde;
+  color: var(--lp-text-color);
   font-synthesis: none;
   text-rendering: optimizeLegibility;
 
@@ -128,8 +130,8 @@ div.list-player *::-webkit-scrollbar-thumb:hover {
 }
 
 .list-player a {
-  color: inherit;
-  text-decoration: inherit;
+  color: var(--lp-text-color);
+  text-decoration: none;
 }
 
 .list-player a:hover {
