@@ -25,6 +25,12 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+@keyframes fadeInUnfocused {
+  0% { opacity: 0; }
+  50% { opacity: 0; }
+  100% { opacity: 0.5; }
+}
+
 #root {
   display: flex;
   place-items: center;
@@ -73,6 +79,11 @@ button.skip-intro {
   color: #ffffff;
   font-size: 1.2rem;
   cursor: pointer;
+  opacity: 0.5;
+}
+
+button.skip-intro:hover {
+  opacity: 1;
 }
 
 /* SCROLLBARS ----------------- */

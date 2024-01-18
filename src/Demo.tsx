@@ -481,6 +481,7 @@ export const Demo = () => {
       <button 
         className="skip-intro" 
         onClick={() => { setExplanitoryText("react-playlist-player"); setPlayerMode("large"); setHeadLess(false); setReplaceHeader(false); setForceSmallWidth(false); setIntro(false);}}
+        style={intro ? {animation: "fadeInUnfocused 1s ease-in-out"} : {display: "none"}}
       >
       SKIP INTRO
       </button>
