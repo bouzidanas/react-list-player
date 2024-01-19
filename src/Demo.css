@@ -5,6 +5,18 @@
 	border-color: #e5e7eb;
 }
 
+@keyframes fadeOut {
+    0% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+
 div.app {
     --lp-gap-1: .25rem;
     --lp-gap-2: .5rem;
