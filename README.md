@@ -1,5 +1,5 @@
 >[!WARNING]
->This package's name was recently changed from react-playlist-player to react-list-player to distinguish it from another package with the same name.
+>This project's name was recently changed from react-playlist-player to react-list-player to distinguish it from another project that goes by the same name.
 
 <p align="center">
   <img width="100%" src="https://github.com/bouzidanas/react-list-player/assets/25779130/5d0bdc8f-dab0-4b3d-9ddf-10f310e64246"/>
@@ -22,7 +22,7 @@ ListPlayer also has a headless mode where only the interactive playlist is prese
 
 ## Installation
 
-This package has been publish to npm under the name `react-list-player`. 
+This package has been [published to npm](https://www.npmjs.com/package/react-list-player) under the name `react-list-player`. 
 
 You can install it using the following command:
 
