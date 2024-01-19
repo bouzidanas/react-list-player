@@ -1,3 +1,4 @@
+import "./index.css";
 import H, { createContext as bt, useState as V, useContext as Nt, useRef as ve, useEffect as Re } from "react";
 var we = { exports: {} }, ie = {};
 /**
@@ -1442,7 +1443,7 @@ const Ze = bt(
     duration: "1:33",
     imageSrc: "https://cdn.pixabay.com/photo/2018/07/14/22/53/currants-3538617_1280.jpg"
   }
-], qt = !1, Jt = () => {
+], qt = !1, Xt = () => {
   const [t, r] = V(-1), [l, s] = V(!1), [m, f] = V(!1), [_, p] = V("react-playlist-player"), [y, E] = V("large"), [N, C] = V(!1), [w, M] = V(!1), [b, P] = V(!1), [F, A] = V(!qt), v = ve(null), x = 1e3, $ = ["/free-audio/tokyo cafe.mp3", "/free-audio/my universe.mp3", "/free-audio/smoke.mp3", "/free-audio/good night.mp3", "/free-audio/hear me.mp3", "/free-audio/baby mandala.mp3", "/free-audio/midnight forest.mp3", "/free-audio/separation.mp3", "/free-audio/drive breakbeat.mp3", "/free-audio/glossy.mp3"], K = (O, q) => {
     var W, z, U;
     O === t && !q ? ((W = v.current) == null || W.load(), (z = v.current) == null || z.play()) : (U = v.current) == null || U.play();
@@ -1534,7 +1535,7 @@ const Ze = bt(
   ] });
 };
 export {
-  Jt as Demo,
+  Xt as Demo,
   Ht as ListControls,
   Yt as ListHeader,
   Bt as ListInfoCard,
