@@ -2,7 +2,9 @@
   "name": "react-playlist-player",
   "version": "1.0.0",
   "type": "module",
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "main": "./dist/rpp.umd.cjs",
   "module": "./dist/rpp.js",
   "exports": {
@@ -35,7 +37,8 @@
     "postcss": "^8.4.33",
     "tailwindcss": "^3.4.1",
     "typescript": "^5.2.2",
-    "vite": "^5.0.8"
+    "vite": "^5.0.8",
+    "vite-plugin-dts": "^3.7.1"
   },
   "peerDependencies": {
     "react": "^18.2.0",
