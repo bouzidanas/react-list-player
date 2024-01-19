@@ -303,7 +303,7 @@ export const Demo = () => {
   const [selectedTrack, setSelectedTrack] = useState(-1);
   const [isPlaying, setIsPlaying] = useState(false);
   const [isMuted, setIsMuted] = useState(false);
-  const [explanitoryText, setExplanitoryText] = useState("react-playlist-player");
+  const [explanitoryText, setExplanitoryText] = useState("react-list-player");
   const [playerMode, setPlayerMode] = useState("large");
   const [forceSmallWidth, setForceSmallWidth] = useState(false);
   const [replaceHeader, setReplaceHeader] = useState(false);
@@ -425,7 +425,7 @@ export const Demo = () => {
     }, 78*durationIncrement);
 
     const timer18 = setTimeout(() => {
-      setExplanitoryText("react-playlist-player");
+      setExplanitoryText("react-list-player");
       setHeadLess(false);
     }, 82*durationIncrement);
 
@@ -480,7 +480,7 @@ export const Demo = () => {
       />
       <button 
         className="skip-intro" 
-        onClick={() => { setExplanitoryText("react-playlist-player"); setPlayerMode("large"); setHeadLess(false); setReplaceHeader(false); setForceSmallWidth(false); setIntro(false);}}
+        onClick={() => { setExplanitoryText("react-list-player"); setPlayerMode("large"); setHeadLess(false); setReplaceHeader(false); setForceSmallWidth(false); setIntro(false);}}
         style={intro ? {animation: "fadeInUnfocused 1s ease-in-out"} : {display: "none"}}
       >
       SKIP INTRO

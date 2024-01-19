@@ -1,5 +1,5 @@
 >[!WARNING]
->This package is still in development and is not yet ready for production use.
+>This package's name was recently changed from react-playlist-player to react-list-player to distinguish it from another package with the same name.
 
 <p align="center">
   <img width="100%" src="https://github.com/bouzidanas/react-list-player/assets/25779130/5d0bdc8f-dab0-4b3d-9ddf-10f310e64246"/>
@@ -22,15 +22,30 @@ ListPlayer also has a headless mode where only the interactive playlist is prese
 
 ## Installation
 
-This package is not yet published to npm. You can install it directly from GitHub using the following command:
+This package has been publish to npm under the name `react-list-player`. 
+
+You can install it using the following command:
+
+```bash
+npm install react-list-player
+```
+You can also install it directly from GitHub using the following command:
 
 ```bash
 npm install bouzidanas/react-list-player
 ```
->[!NOTE]
->I am currently in the process of transitioning from using tailwindcss to pure css. 
+If you want to work straight from the source code, you will need to fork the repository and clone it to your local machine. Then you will need to make sure it is in "demo-mode" and not "lib-mode". To do this, just run the command:
+```bash
+npm run demo
+```
+from the root directory of the repository. As a test, you can run the command `npm run dev` to launch the demo app.
 
-The current version of the package uses tailwindcss. To get the components to appear properly, you need to have tailwind installed in the project where you will be using react-list-player components. See [tailwindCSS documentation](https://tailwindcss.com/docs/installation) for installation instructions. 
+```bash 
+>[!NOTE]
+>Versions up to and including Version 1.0.0 use TailwindCSS. If you are using a later version, you can skip the tailwindCSS installation and configuration instructions.
+
+### TailwindCSS installation and configuration
+Version of the package uses tailwindcss. To get the components to appear properly, you need to have tailwind installed in the project where you will be using react-list-player components. See [tailwindCSS documentation](https://tailwindcss.com/docs/installation) for installation instructions. 
 
 After installing tailwindCSS, you need to add the following string to the content array in your projects `tailwind.config.js` file:
 ```js
