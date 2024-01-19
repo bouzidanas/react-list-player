@@ -2,10 +2,10 @@
 >This package is still in development and is not yet ready for production use.
 
 <p align="center">
-  <img width="100%" src="https://github.com/bouzidanas/react-playlist-player/assets/25779130/5d0bdc8f-dab0-4b3d-9ddf-10f310e64246"/>
+  <img width="100%" src="https://github.com/bouzidanas/react-list-player/assets/25779130/5d0bdc8f-dab0-4b3d-9ddf-10f310e64246"/>
 </p>
 
-# <img src='https://raw.githubusercontent.com/bouzidanas/react-playlist-player/master/public/logo.svg' width='22'> react-playlist-player [![Static Badge](https://img.shields.io/badge/Demo-415a77?style=for-the-badge)](https://react-playlist-player.vercel.app/)
+# <img src='https://raw.githubusercontent.com/bouzidanas/react-list-player/master/public/logo.svg' width='22'> react-list-player [![Static Badge](https://img.shields.io/badge/Demo-415a77?style=for-the-badge)](https://react-list-player.vercel.app/)
 
 A flexible playlist react component
 
@@ -25,18 +25,18 @@ ListPlayer also has a headless mode where only the interactive playlist is prese
 This package is not yet published to npm. You can install it directly from GitHub using the following command:
 
 ```bash
-npm install bouzidanas/react-playlist-player
+npm install bouzidanas/react-list-player
 ```
 >[!NOTE]
 >I am currently in the process of transitioning from using tailwindcss to pure css. 
 
-The current version of the package uses tailwindcss. To get the components to appear properly, you need to have tailwind installed in the project where you will be using react-playlist-player components. See [tailwindCSS documentation](https://tailwindcss.com/docs/installation) for installation instructions. 
+The current version of the package uses tailwindcss. To get the components to appear properly, you need to have tailwind installed in the project where you will be using react-list-player components. See [tailwindCSS documentation](https://tailwindcss.com/docs/installation) for installation instructions. 
 
 After installing tailwindCSS, you need to add the following string to the content array in your projects `tailwind.config.js` file:
 ```js
-"./node_modules/react-playlist-player/**/*.{js,ts,jsx,tsx}"
+"./node_modules/react-list-player/**/*.{js,ts,jsx,tsx}"
 ```
-This will allow tailwind to scan the react-playlist-player components for classes that you can use in your project. Your `tailwind.config.js` file should look something like this:
+This will allow tailwind to scan the react-list-player components for classes that you can use in your project. Your `tailwind.config.js` file should look something like this:
 
 ```diff
 /** @type {import('tailwindcss').Config} */
@@ -44,7 +44,7 @@ export default {
   content: [
     "./index.html",
     "./src/**/*.{js,ts,jsx,tsx}",
-+    "./node_modules/react-playlist-player/**/*.{js,ts,jsx,tsx}",
++    "./node_modules/react-list-player/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
     extend: {},
@@ -59,7 +59,7 @@ Below is a basic skeleton of how to use the ListPlayer component.
 
 ```tsx
 import { useState } from 'react';
-import { ListPlayer, ListPlayerContext } from 'react-playlist-player';
+import { ListPlayer, ListPlayerContext } from 'react-list-player';
 
 // The following test object has type ListInfo which is defined in the ListPlayer file
 const testListInfo = {}; // object needed to populate the playlist header with
@@ -93,7 +93,7 @@ The `<ListPlayer>` component responds to changes in the three shared context var
 
 ```tsx
 import { useState } from 'react';
-import { ListPlayer, ListPlayerContext } from 'react-playlist-player';
+import { ListPlayer, ListPlayerContext } from 'react-list-player';
 
 const testListInfo = {/*...*/};
 
@@ -154,7 +154,7 @@ Alternatively, if `<ListPlayer>` is given a `playCallback` function, it will cal
 
 ```tsx
 import { useState } from 'react';
-import { ListPlayer, ListPlayerContext } from 'react-playlist-player';
+import { ListPlayer, ListPlayerContext } from 'react-list-player';
 
 const testListInfo = {/*...*/};
 
@@ -365,9 +365,9 @@ Finally, there is a headless mode where only the playlist is rendered. This is d
 >[!NOTE]
 >The tracks used in the demo are protected by copywrite. The audio files are omitted from the repository and the demo site. You can run the demo locally by cloning the repository and adding your own audio files to the `public/audio` folder. Make sure to also add the file names to the `audioSrcs` array if you are using the example code from the previous section.
 
-[![Static Badge](https://img.shields.io/badge/Demo-415a77?style=for-the-badge)](https://react-playlist-player.vercel.app/)   :arrow_left: *(Click here to see a demo of the ListPlayer component)*
+[![Static Badge](https://img.shields.io/badge/Demo-415a77?style=for-the-badge)](https://react-list-player.vercel.app/)   :arrow_left: *(Click here to see a demo of the ListPlayer component)*
 
 
 ## License
 
-[![Static Badge](https://img.shields.io/badge/License-MIT-415a77?style=for-the-badge)](https://github.com/bouzidanas/react-playlist-player/blob/master/LICENSE)
+[![Static Badge](https://img.shields.io/badge/License-MIT-415a77?style=for-the-badge)](https://github.com/bouzidanas/react-list-player/blob/master/LICENSE)

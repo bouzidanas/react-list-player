@@ -1,17 +1,28 @@
 {
-    "name": "react-playlist-player",
-    "version": "1.0.0",
+    "name": "react-list-player",
+    "version": "1.0.1",
+    "description": "A flexible react playlist component",
+    "author": {
+      "name": "Bouzid Anas",
+      "email": "anas.bouzid@bezda.net"
+    },
+    "license": "MIT",
+    "repository": {
+      "type": "git",
+      "url": "https://github.com/bouzidanas/react-playlist-player"
+    },
+    "homepage": "https://react-playlist-player.vercel.app/",
     "type": "module",
     "files": [
       "dist"
     ],
-    "main": "./dist/rpp.umd.cjs",
-    "module": "./dist/rpp.js",
+    "main": "./dist/rlp.umd.cjs",
+    "module": "./dist/rlp.js",
     "exports": {
       ".": {
         "types": "./dist/index.d.ts",
-        "import": "./dist/rpp.js",
-        "require": "./dist/rpp.umd.cjs"
+        "import": "./dist/rlp.js",
+        "require": "./dist/rlp.umd.cjs"
       }
     },
     "scripts": {
@@ -49,4 +60,3 @@
       "react-dom": "^18.2.0"
     }
   }
-  
