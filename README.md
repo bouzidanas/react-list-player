@@ -40,10 +40,8 @@ npm run demo
 ```
 from the root directory of the repository. As a test, you can run the command `npm run dev` to launch the demo app.
 
-```bash 
 >[!NOTE]
 >Versions up to and including Version 1.0.0 use TailwindCSS. If you are using a later version, you can skip the tailwindCSS installation and configuration instructions.
-  
 
 ### TailwindCSS installation and configuration
 Version of the package uses tailwindcss. To get the components to appear properly, you need to have tailwind installed in the project where you will be using react-list-player components. See [tailwindCSS documentation](https://tailwindcss.com/docs/installation) for installation instructions. 
