@@ -459,6 +459,7 @@ block */
 
 .list-player h1.lt-info-title-h1 {
   font-size: 2rem;
+  text-align: start;
 }
 
 .list-player div.lt-info-stats {
