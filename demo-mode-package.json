@@ -1,6 +1,6 @@
 {
     "name": "react-list-player",
-    "version": "1.0.3",
+    "version": "1.0.4",
     "description": "A flexible react playlist component",
     "author": {
       "name": "Bouzid Anas",
@@ -9,9 +9,9 @@
     "license": "MIT",
     "repository": {
       "type": "git",
-      "url": "https://github.com/bouzidanas/react-playlist-player"
+      "url": "https://github.com/bouzidanas/react-list-player"
     },
-    "homepage": "https://react-playlist-player.vercel.app/",
+    "homepage": "https://react-list-player.vercel.app/",
     "type": "module",
     "scripts": {
       "dev": "vite",
