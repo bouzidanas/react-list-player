@@ -356,6 +356,13 @@ Note that there are three different playlist info types: `playlistInfo`, `albumI
 }
 ```
 
+>[!NOTE]
+>If the `listInfo` object does not have an imageSrc property, then the imageSrc property of the currently selected track will be used.
+> 
+>So, for example, in the case where you have a playlist of songs from different albums where each album has its own cover art, you can set the imageSrc property of each track to the album cover art. Then you can intentionally omit the imageSrc property from the `listInfo` object. This will cause the playlist header to display the cover art of the album containing the currently selected track.
+>
+>If the currently selected track does not have an imageSrc property, then the missing art image placeholder/fallback will be used.
+
 ## Additional Features
 
 An optional feature of `<ListPlayer>` is the ability to replace the default header with a custom header. This is done by passing a component as a child of `<ListPlayer>`. The component will be rendered in place of the default header. Note that you can embed your media player component in your custom header component although it is not necessary.
