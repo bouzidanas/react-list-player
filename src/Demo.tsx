@@ -462,7 +462,17 @@ export const Demo = () => {
           {explanitoryText}
         </div>
         <div className='listplayer-cont' style={forceSmallWidth ? {paddingLeft: "20%", paddingRight: "20%"} : undefined}>
-          <ListPlayer loop tracks={testTracks} listInfo={testListInfo} playerMode={playerMode} noControls={replaceHeader} noHeader={headLess} playCallback={handleOnPlay} pauseCallback={handleOnPause}>
+          <ListPlayer 
+            tracks={testTracks} 
+            listInfo={testListInfo} 
+            playerMode={playerMode} 
+            noControls={replaceHeader} 
+            noHeader={headLess} 
+            playCallback={handleOnPlay} 
+            pauseCallback={handleOnPause}
+            loop
+            kbdShortcuts
+          >
             {
               replaceHeader 
               ? <div className="custom-hdr-placeholder" style={{animation: "fadeIn 1s ease-in-out", background: "repeating-linear-gradient( 45deg, #22222255, #22222255 10px, #22222200 10px, #22222200 20px)"}}>

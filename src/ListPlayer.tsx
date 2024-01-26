@@ -548,7 +548,7 @@ const Track = ({ track, trackNumber, selected = false, playIcon = true, onClick 
 }
 
 // TODO: Make tracks and listInfo mandatory props
-export const ListPlayer = ({ tracks = testTracks, listInfo = testListInfo, prevBufferTime = 1500, playerMode, noControls = false, noHeader = false, loop = false, continueOn=false, playCallback, pauseCallback, muteCallback, children }: { tracks?: track[], listInfo?: listInfo, prevBufferTime?: number, playerMode?: string, noControls?: boolean, noHeader?: boolean, loop?: boolean, continueOn?: boolean, playCallback?: (trackNumber: number, resume: boolean) => void, pauseCallback?: () => void, muteCallback?: (mute: boolean) => void, children?: React.ReactNode }) => {
+export const ListPlayer = ({ tracks = testTracks, listInfo = testListInfo, prevBufferTime = 1500, playerMode, noControls = false, noHeader = false, loop = false, continueOn=false, kbdShortcuts=false, playCallback, pauseCallback, muteCallback, children }: { tracks?: track[], listInfo?: listInfo, prevBufferTime?: number, playerMode?: string, noControls?: boolean, noHeader?: boolean, loop?: boolean, continueOn?: boolean, kbdShortcuts?: boolean, playCallback?: (trackNumber: number, resume: boolean) => void, pauseCallback?: () => void, muteCallback?: (mute: boolean) => void, children?: React.ReactNode }) => {
     const [timerTriggerFlag, setTimerTriggerFlag] = useState(false);
 
     const { selectedTrack, setSelectedTrack, isPlaying, setIsPlaying, isMuted, setIsMuted } = useContext(ListPlayerContext);
@@ -618,17 +618,26 @@ export const ListPlayer = ({ tracks = testTracks, listInfo = testListInfo, prevB
     }
 
     useEffect(() => {
+        if (kbdShortcuts === false) return;
         const handleKeyDown = (event: KeyboardEvent) => {
             if (event.key === " ") {
                 event.preventDefault();
                 playPause(!isPlaying);
+            }
+            else if (event.key === "ArrowLeft") {
+                event.preventDefault();
+                handlePreviousClick();
+            }
+            else if (event.key === "ArrowRight") {
+                event.preventDefault();
+                handleNextClick();
             }
         }
 
         document.addEventListener("keydown", handleKeyDown);
 
         return () => document.removeEventListener("keydown", handleKeyDown);
-    }, []);
+    }, [isPlaying, selectedTrack, kbdShortcuts]);
 
     useEffect(() => {
         if (selectedTrack === -1) return;
