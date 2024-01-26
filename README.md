@@ -29,16 +29,6 @@ You can install it using the following command:
 ```bash
 npm install react-list-player
 ```
-You can also install it directly from GitHub using the following command:
-
-```bash
-npm install bouzidanas/react-list-player
-```
-If you want to work straight from the source code, you will need to fork the repository and clone it to your local machine. Then you will need to make sure it is in "demo-mode" and not "lib-mode". To do this, just run the command:
-```bash
-npm run demo
-```
-from the root directory of the repository. As a test, you can run the command `npm run dev` to launch the demo app.
 
 >[!NOTE]
 >Versions up to and including Version 1.0.0 use TailwindCSS. If you are using a later version, you can skip the tailwindCSS installation and configuration instructions.
@@ -380,6 +370,19 @@ Finally, there is a headless mode where only the playlist is rendered. This is d
 >The tracks used in the demo are protected by copywrite. The audio files are omitted from the repository and the demo site. You can run the demo locally by cloning the repository and adding your own audio files to the `public/audio` folder. Make sure to also add the file names to the `audioSrcs` array if you are using the example code from the previous section.
 
 [![Static Badge](https://img.shields.io/badge/Demo-415a77?style=for-the-badge)](https://react-list-player.vercel.app/)   :arrow_left: *(Click here to see a demo of the ListPlayer component)*
+
+
+## Contributing
+
+Pull requests are welcome. 
+For major changes, please open an issue first to discuss what you would like to change.
+
+>[!WARNING]
+>If, for some reason, this repo is in lib-mode (it shouldnt be), you will need to make sure it is in demo-mode before you make a pull request. To do this, just run the command:
+>```bash
+>npm run demo
+>```
+>from the root directory of the repository. It is recommended that you switch to demo-mode before making changes. As a test, you can run the command `npm run dev` to launch the demo app (which will not work if in lib-mode).
 
 
 ## License
