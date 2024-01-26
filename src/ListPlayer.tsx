@@ -618,6 +618,19 @@ export const ListPlayer = ({ tracks = testTracks, listInfo = testListInfo, prevB
     }
 
     useEffect(() => {
+        const handleKeyDown = (event: KeyboardEvent) => {
+            if (event.key === " ") {
+                event.preventDefault();
+                playPause(!isPlaying);
+            }
+        }
+
+        document.addEventListener("keydown", handleKeyDown);
+
+        return () => document.removeEventListener("keydown", handleKeyDown);
+    }, []);
+
+    useEffect(() => {
         if (selectedTrack === -1) return;
         allowScrollIntoView.current && !(playerMode === "tinyplayer" || playerMode === "miniplayer") && scrollTrackIntoView(selectedTrack);
         allowScrollIntoView.current = true;
