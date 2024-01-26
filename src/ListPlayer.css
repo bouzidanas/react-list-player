@@ -212,7 +212,7 @@ div.list-player *::-webkit-scrollbar-thumb:hover {
   display: none;
 }
 
-.list-player div.track:hover .action-icon {
+.list-player div.track:hover .action-icon, .list-player div.track-number .action-icon.sel  {
   display: unset;
 }
 
@@ -241,9 +241,10 @@ div.list-player *::-webkit-scrollbar-thumb:hover {
   height: 1.25rem;
 }
 
-/* .text {
-
-} */ 
+.list-player .track span.cdot, .list-player .lt-info-card span.cdot {
+  font-weight: bold;
+  margin: 1px;
+} 
 
 .list-player .list-number {
   display: unset;
@@ -641,6 +642,8 @@ block */
   font-size: 1.875rem;
   line-height: 2.25rem;
   padding: 1rem;
+  animation: fadeIn 1s ease-in-out;
+  background: repeating-linear-gradient( 45deg, #22222266, #22222266 6px, #22222200 6px, #22222200 12px);
   container-name: art;
   container-type: inline-size;
 }

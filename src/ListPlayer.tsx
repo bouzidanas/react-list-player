@@ -424,13 +424,13 @@ export const ListInfoCard = ({ track, info }: { track: track, info: listInfo }) 
                             </div>
                         :   <div className="lt-info-stats">
                                 <span className="text pure">{info.releaseDate}</span>
-                                <span className="cdot" style={{ fontWeight: "bold", margin: "1px" }}>·</span>
+                                <span className="cdot">·</span>
                                 <span className="text pure">{info.genre}</span>
                             </div>
                 }
                 <div className="lt-info-stats">
                     <span className="text number">{info.numTracks} tracks</span>
-                    <span className="cdot number" style={{ fontWeight: "bold", margin: "1px" }}>·</span>
+                    <span className="cdot number">·</span>
                     <span className="text pure number">{info.type === "artist" ? info.numAlbums : info.duration}</span>
                 </div>
             </div>
@@ -440,7 +440,7 @@ export const ListInfoCard = ({ track, info }: { track: track, info: listInfo }) 
                         <img className="lt-info-img" src={info.imageSrc??track.imageSrc} alt="list image" />
                     </div>
                 :   <div className="lt-info-art-placeholder-cont">
-                        <div className="lt-info-placeholder" style={{animation: "fadeIn 1s ease-in-out", background: "repeating-linear-gradient( 45deg, #22222266, #22222266 6px, #22222200 6px, #22222200 12px)"}}>
+                        <div className="lt-info-placeholder">
                             <span>
                                 <CgMusicNote className="lt-info-placeholder-icon" />
                             </span>
@@ -501,15 +501,14 @@ export const ListHeader = ({ info = placeholderListInfo, track, muted = false, p
 }
 
 const Track = ({ track, trackNumber, selected = false, playIcon = true, onClick }: { track: track, trackNumber?: number, selected?: boolean, playIcon?: boolean, onClick?: () => void }) => {
-
     return (
         <div className={"track " + (selected ? "selected" : "")} onClick={onClick}>
             <div className="track-number">
                 {
                     selected
                     ?   playIcon
-                        ?   <HiMiniPlay className="action-icon" style={{ display: "unset" }} />
-                        :   <HiMiniPause className="action-icon" style={{ display: "unset" }} />
+                        ?   <HiMiniPlay className="action-icon sel" />
+                        :   <HiMiniPause className="action-icon sel" />
                     :   trackNumber
                         ?   <>
                                 <span className="text number list-number">{trackNumber}</span>
@@ -525,7 +524,7 @@ const Track = ({ track, trackNumber, selected = false, playIcon = true, onClick 
                     </div>
                     <div className="meta-cont">
                         <Text textArray={track.artist} />
-                        <span className="cdot" style={{ fontWeight: "bold", margin: "1px" }}>·</span>
+                        <span className="cdot">·</span>
                         <Text textArray={track.album} />
                     </div>
                 </div>
