@@ -383,12 +383,12 @@ const Text = ({ textArray }: { textArray: playerText[] }) => {
             {
                 textArray.map((text, index) =>
                     text.type === 'badge'
-                        ? <span key={"badge-" + index} className={"text badge " + text.className} style={text.style}>{text.content}</span>
-                        : <span key={"text-" + index} className={"text pure " + text.className} style={text.style}>
+                    ?   <span key={"badge-" + index} className={"text badge " + text.className} style={text.style}>{text.content}</span>
+                    :   <span key={"text-" + index} className={"text pure " + text.className} style={text.style}>
                             {
                                 text.link
-                                    ? <a href={text.link} target={text.externalLink ? "_blank" : "_self"} rel={text.externalLink ? "noopener noreferrer" : ""}>{text.content}</a>
-                                    : text.content
+                                ?   <a href={text.link} target={text.externalLink ? "_blank" : "_self"} rel={text.externalLink ? "noopener noreferrer" : ""}>{text.content}</a>
+                                :   text.content
                             }
                         </span>)
             }
