@@ -374,7 +374,7 @@ Finally, there is a headless mode where only the playlist is rendered. This is d
 ## Demo
 
 >[!NOTE]
->The tracks used in the demo are protected by copywrite. The audio files are omitted from the repository and the demo site. You can run the demo locally by cloning the repository and adding your own audio files to the `public/audio` folder. Make sure to also add the file names to the `audioSrcs` array if you are using the example code from the previous section.
+>The tracks used in the demo are copyright free
 
 [![Static Badge](https://img.shields.io/badge/Demo-415a77?style=for-the-badge)](https://react-list-player.vercel.app/)   :arrow_left: *(Click here to see a demo of the ListPlayer component)*
 
