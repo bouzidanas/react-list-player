@@ -515,8 +515,7 @@ export const TrackOptionsMenu = ({ track }: { track: track }) => {
             </button>
         </div>
     )
-
-
+}
 
 const Track = ({ track, trackNumber, selected = false, playIcon = true, onClick }: { track: track, trackNumber?: number, selected?: boolean, playIcon?: boolean, onClick?: () => void }) => {
     return (
