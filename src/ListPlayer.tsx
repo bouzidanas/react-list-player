@@ -500,6 +500,24 @@ export const ListHeader = ({ info = placeholderListInfo, track, muted = false, p
     );
 }
 
+export const TrackOptionsMenu = ({ track }: { track: track }) => {
+    // TODO: Implement Track Options menu that pops up that contains download, add to playlist, share, etc.
+    return (
+        <div className="track-options-menu">
+            <button className="btn track-options-btn track-dl" onClick={() => console.log("Download: ", track)}>
+                Download
+            </button>
+            <button className="btn track-options-btn track-add" onClick={() => console.log("Add to playlist: ", track)}>
+                Add to Playlist
+            </button>
+            <button className="btn track-options-btn track-share" onClick={() => console.log("Share: ", track)}>
+                Share
+            </button>
+        </div>
+    )
+
+
+
 const Track = ({ track, trackNumber, selected = false, playIcon = true, onClick }: { track: track, trackNumber?: number, selected?: boolean, playIcon?: boolean, onClick?: () => void }) => {
     return (
         <div className={"track " + (selected ? "selected" : "")} onClick={onClick}>
