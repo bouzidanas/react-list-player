@@ -500,6 +500,7 @@ export const ListHeader = ({ info = placeholderListInfo, track, muted = false, p
     );
 }
 
+//popup menu for track options
 export const TrackOptionsMenu = ({ track }: { track: track }) => {
     // TODO: Implement Track Options menu that pops up that contains download, add to playlist, share, etc.
     return (
