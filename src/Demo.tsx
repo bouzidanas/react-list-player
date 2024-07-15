@@ -91,6 +91,7 @@ const testTracks: track[] = [
               content: 'FASS',
               className: 'artist',
               link: 'https://pixabay.com/users/fassounds-3433550/',
+              externalLink: true
           }
       ],
       album: [

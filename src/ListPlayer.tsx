@@ -518,7 +518,7 @@ export const TrackOptionsMenu = ({ track }: { track: track }) => {
     )
 }
 
-const Track = ({ track, trackNumber, selected = false, playIcon = true, onClick }: { track: track, trackNumber?: number, selected?: boolean, playIcon?: boolean, onClick?: () => void }) => {
+const Track = ({ track, trackNumber, selected = false, playIcon = true, onClick }: { track: track, trackNumber?: number, selected?: boolean, playIcon?: boolean, onClick?: (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void }) => {
     return (
         <div className={"track " + (selected ? "selected" : "")} onClick={onClick}>
             <div className="track-number">
@@ -605,7 +605,10 @@ export const ListPlayer = ({ tracks = testTracks, listInfo = testListInfo, prevB
         }
     }
 
-    const handleTrackClick = (index: number) => {
+    const handleTrackClick = (event: React.MouseEvent<HTMLDivElement>, index: number) => {
+        //Ignore clicks on links inside the track
+        if (event.target instanceof HTMLAnchorElement) return;
+        
         index === selectedTrack 
         ?   playPause(!isPlaying) 
         :   allowScrollIntoView.current = false, setSelectedTrack(index);
@@ -685,7 +688,7 @@ export const ListPlayer = ({ tracks = testTracks, listInfo = testListInfo, prevB
                 }
                 <div ref={listBodyRef} className="list-body">
                     {
-                        tracks.map((track, index) => <Track key={"track-" + index} track={track} trackNumber={index + 1} onClick={() => handleTrackClick(index)} selected={index === selectedTrack} playIcon={!isPlaying || index !== selectedTrack} />)
+                        tracks.map((track, index) => <Track key={"track-" + index} track={track} trackNumber={index + 1} onClick={(event: React.MouseEvent<HTMLDivElement>) => handleTrackClick(event, index)} selected={index === selectedTrack} playIcon={!isPlaying || index !== selectedTrack} />)
                     }
                 </div>
             </div>
