@@ -156,6 +156,8 @@ div.list-player *::-webkit-scrollbar-thumb:hover {
   transition-property: max-height, max-width;
   transition-duration: 0.5s;
   transition-timing-function: ease-in-out;
+  container-type: inline-size;
+  container-name: player;
 }
 
 .list-player .list-header {
@@ -362,20 +364,50 @@ block */
   backdrop-filter: var(--lp-backdrop-blur);
   background-color: rgb(0 0 0 / 0.1);
   position: absolute;
-  bottom: 0px;
+  bottom: 2px;
   left: auto;
   right: 0px;
-  margin: 0.6rem;
+  margin: 0.57rem;
   width: fit-content;
   height: fit-content;
-  padding: 0.5rem;
+  padding: 0.43rem;
   display: flex;
   justify-content: center;
   align-items: center;
   border-radius: 0.5rem;
-  transition-property: all;
-  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-  transition-duration: 700ms;
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* Lift controller-panel by half the seekbar height when enabled */
+.list-player .list-header:has(.seek-bar-cont .seek-input:not(:disabled)) .controller-panel {
+  bottom: 3px;
+}
+
+/* Lift MORE when the seekbar itself is hovered (half of 6px) */
+.list-player .list-header:has(.progress-bar-wrapper:hover .seek-input:not(:disabled)) .controller-panel {
+  bottom: 4px;
+}
+
+/* Revert controller-panel lift when player width is small (seekbar not in header-bottom) */
+@container player (max-width: 549px) {
+  .list-player .list-header:has(.seek-bar-cont .seek-input:not(:disabled)) .controller-panel {
+    bottom: 2px;
+    right: 2px;
+  }
+  .list-player .list-header:has(.progress-bar-wrapper:hover .seek-input:not(:disabled)) .controller-panel {
+    bottom: 2px;
+    right: 2px;
+  }
+
+  .list-player .list-header:has(.seek-bar-cont .seek-input:disabled) .controller-panel {
+    bottom: 2px;
+    right: 2px;
+  }
+  .list-player .list-header:has(.progress-bar-wrapper:hover .seek-input:disabled) .controller-panel {
+    bottom: 2px;
+    right: 2px;
+  }
+
 }
 
 .list-player button.mute-btn {
@@ -414,11 +446,19 @@ block */
   height: 3.5rem;
 }
 
-.list-player div.controller-panel > .btn {
+.list-player div.controller-panel .btn {
   opacity: 0.75;
 }
 
-.list-player div.controller-panel > .btn:hover {
+.list-player div.controller-panel .controls-buttons {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    margin-bottom: 0;
+}
+
+.list-player div.controller-panel .btn:hover {
   opacity: 1;
 }
 
@@ -482,6 +522,38 @@ block */
 .list-player div.lh-listinfocard-cont {
   padding: 0.64rem;
   container-type: size;
+  transition: padding 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* Explicitly reset to original when seekbar is disabled */
+.list-player .list-header:has(.seek-bar-cont .seek-input:disabled) .lh-listinfocard-cont,
+.list-player .list-header:not(:has(.seek-bar-cont .seek-input)) .lh-listinfocard-cont {
+  padding: 0.64rem;
+}
+
+/* Reduce padding by half the seekbar height when enabled */
+.list-player .list-header:has(.seek-bar-cont .seek-input:not(:disabled)) .lh-listinfocard-cont {
+  padding: calc(0.64rem - 2px);
+  padding-bottom: calc(0.64rem + 2px);
+}
+
+/* Reduce more when seekbar is hovered (thicker) */
+.list-player .list-header:has(.progress-bar-wrapper:hover .seek-input:not(:disabled)) .lh-listinfocard-cont {
+  padding: calc(0.64rem - 3px);
+  padding-bottom: calc(0.64rem + 3px);
+}
+
+/* Revert bottom padding when player width is small (seekbar not in header-bottom) */
+@container player (max-width: 549px) {
+  .list-player .list-header:has(.seek-bar-cont .seek-input:not(:disabled)) .lh-listinfocard-cont,
+  .list-player .list-header:has(.progress-bar-wrapper:hover .seek-input:not(:disabled)) .lh-listinfocard-cont {
+    padding: 0.64rem;
+  }
+
+  .list-player .list-header:has(.seek-bar-cont .seek-input:disabled) .controller-panel {
+    bottom: 2px;
+    right: 2px;
+  }
 }
 
 .list-player .lt-info-title h1, .list-player .lt-info-panel .lt-info-stats span.text.pure, .list-player .lt-info-panel .lt-info-stats span.text.number, .list-player .lt-info-panel .lt-info-stats span.cdot {
@@ -657,4 +729,184 @@ block */
   .list-player div.lt-info-placeholder > span {
     font-size: 2rem;
   }
+}
+
+/* SEEKBAR -------------------- */
+.seek-bar-cont {
+  transition: opacity 0.3s ease-in-out;
+  opacity: 0;
+  pointer-events: none;
+  font-size: small;
+  font-weight: 600;
+  text-shadow: 0 1px 2px rgb(0 0 0 / 0.5);
+  display: none;
+}
+
+/* Width < 550px: Always show controls seek bar */
+@container player (max-width: 549px) {
+  .seek-bar-cont.controls {
+    display: flex;
+    opacity: 1;
+    pointer-events: auto;
+  }
+  
+  .seek-bar-cont.mini,
+  .seek-bar-cont.header-bottom {
+    display: none;
+  }
+}
+
+/* Width ≥ 550px: Mode-based visibility */
+@container player (min-width: 550px) {
+  /* Miniplayer mode: show mini */
+  .list-player[data-mode="miniplayer"] .seek-bar-cont.mini {
+    display: flex;
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  /* Tiny modes: show controls */
+  .list-player[data-mode="tiny"] .seek-bar-cont.controls,
+  .list-player[data-mode="tinyplayer"] .seek-bar-cont.controls {
+    display: flex;
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  /* All other modes: show header-bottom */
+  .list-player:not([data-mode="miniplayer"]):not([data-mode="tiny"]):not([data-mode="tinyplayer"]) .seek-bar-cont.header-bottom {
+    display: flex;
+    opacity: 1;
+    pointer-events: auto;
+  }
+}
+
+.seek-bar-cont.header-bottom {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 0;
+  margin: 0;
+  z-index: 5;
+}
+
+.seek-bar-cont.header-bottom .time-inds-top {
+  display: none;
+}
+
+.seek-bar-cont.header-bottom .seek-input {
+  width: 100%;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 2px;
+  appearance: none;
+  -webkit-appearance: none;
+  cursor: pointer;
+}
+
+/* Mini Mode Placement */
+.seek-bar-cont.mini {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 35%; /* Adjust as needed to fit between info and controls */
+  display: flex;
+  flex-direction: column;
+  z-index: 20;
+}
+
+.seek-bar-cont.mini .progress-bar-wrapper {
+  width: 100%;
+}
+
+.seek-bar-cont.mini .mini-time-inds {
+  display: none;
+}
+
+/* Inside Controls Mode */
+.seek-bar-cont.controls {
+  width: 100%;
+  margin-top: 0.5rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.controller-panel.with-seek {
+  flex-direction: column;
+  padding: 0.8rem;
+}
+
+.controller-panel.with-seek .controls-buttons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 0;
+}
+
+/* Seek Input Styling */
+.seek-input {
+  -webkit-appearance: none;
+  width: 100%;
+  height: 4px;
+  /* background managed by inline style */
+  border-radius: 2px;
+  outline: none;
+  margin: 0;
+  display: block;
+  opacity: 1;
+  transition: height 0.1s ease-in-out, opacity 0.3s ease-in-out;
+}
+
+.seek-input:disabled {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.progress-bar-wrapper:hover .seek-input:not(:disabled) {
+  height: 6px;
+}
+
+.seek-input::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 0;
+  height: 0;
+  opacity: 0;
+}
+
+.seek-input::-webkit-slider-thumb:hover {
+  transform: scale(1.2);
+}
+
+.seek-input::-moz-range-thumb {
+  width: 0;
+  height: 0;
+  opacity: 0;
+  border: none;
+}
+
+/* Dynamic Seek Labels */
+.seek-label {
+    position: absolute;
+    bottom: 12px;
+    transform: translateX(-50%);
+    background-color: rgba(0, 0, 0, 0.7);
+    color: white;
+    padding: 2px 4px;
+    border-radius: 4px;
+    font-size: 0.7rem;
+    pointer-events: none;
+    white-space: nowrap;
+    z-index: 10;
+}
+
+.progress-bar-wrapper {
+    position: relative;
+    width: 100%;
 }

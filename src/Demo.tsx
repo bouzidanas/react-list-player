@@ -310,6 +310,9 @@ export const Demo = () => {
   const [replaceHeader, setReplaceHeader] = useState(false);
   const [headLess, setHeadLess] = useState(false);
   const [intro, setIntro] = useState(!skipIntroduction);
+  
+  const [currentTime, setCurrentTime] = useState(0);
+  const [duration, setDuration] = useState(0);
 
   const audioRef = useRef<HTMLAudioElement>(null);
 
@@ -327,6 +330,13 @@ export const Demo = () => {
 
   const handleOnPause = () => {
     audioRef.current?.pause();
+  }
+  
+  const handleSeek = (time: number) => {
+    if (audioRef.current) {
+        audioRef.current.currentTime = time;
+        setCurrentTime(time);
+    }
   }
 
   useEffect(() => {
@@ -457,7 +467,7 @@ export const Demo = () => {
   }, [intro]);
 
   return (
-    <ListPlayerContext.Provider value={{selectedTrack, setSelectedTrack, isPlaying, setIsPlaying, isMuted, setIsMuted}}>
+    <ListPlayerContext.Provider value={{selectedTrack, setSelectedTrack, isPlaying, setIsPlaying, isMuted, setIsMuted, currentTime, duration, setCurrentTime: handleSeek}}>
       <div className="app">
         <div key={explanitoryText} className="explanitory-text" style={{animation: "fadeIn 1s ease-in-out"}}>
           {explanitoryText}
@@ -488,6 +498,8 @@ export const Demo = () => {
         src={selectedTrack < audioSrcs.length ? audioSrcs[selectedTrack%audioSrcs.length] : undefined}
         muted={isMuted} 
         onEnded={() => {setSelectedTrack(selectedTrack + 1)}}
+        onTimeUpdate={(e) => setCurrentTime(e.currentTarget.currentTime)}
+        onLoadedMetadata={(e) => setDuration(e.currentTarget.duration)}
       />
       <button 
         className="skip-intro" 

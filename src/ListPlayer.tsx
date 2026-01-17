@@ -383,16 +383,84 @@ const Text = ({ textArray }: { textArray: playerText[] }) => {
             {
                 textArray.map((text, index) =>
                     text.type === 'badge'
-                    ?   <span key={"badge-" + index} className={"text badge " + text.className} style={text.style}>{text.content}</span>
-                    :   <span key={"text-" + index} className={"text pure " + text.className} style={text.style}>
+                        ? <span key={"badge-" + index} className={"text badge " + text.className} style={text.style}>{text.content}</span>
+                        : <span key={"text-" + index} className={"text pure " + text.className} style={text.style}>
                             {
                                 text.link
-                                ?   <a href={text.link} target={text.externalLink ? "_blank" : "_self"} rel={text.externalLink ? "noopener noreferrer" : ""}>{text.content}</a>
-                                :   text.content
+                                    ? <a href={text.link} target={text.externalLink ? "_blank" : "_self"} rel={text.externalLink ? "noopener noreferrer" : ""}>{text.content}</a>
+                                    : text.content
                             }
                         </span>)
             }
         </>
+    )
+}
+
+const SeekBar = ({ mode }: { mode: 'header-bottom' | 'mini' | 'controls' }) => {
+    const { currentTime, duration, setCurrentTime, selectedTrack } = useContext(ListPlayerContext);
+    const [isHovered, setIsHovered] = useState(false);
+    const progressBarRef = useRef<HTMLDivElement>(null);
+    const currentLabelRef = useRef<HTMLDivElement>(null);
+    const hoverLabelRef = useRef<HTMLDivElement>(null);
+
+    const formatTime = (time: number) => {
+        if (!time || isNaN(time)) return "0:00";
+        const min = Math.floor(time / 60);
+        const sec = Math.floor(time % 60);
+        return `${min}:${sec < 10 ? '0' + sec : sec}`;
+    }
+
+    const handleSeek = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setCurrentTime(Number(e.target.value));
+    }
+
+    const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+        if (!progressBarRef.current || !duration || !hoverLabelRef.current) return;
+        const rect = progressBarRef.current.getBoundingClientRect();
+        const offsetX = e.clientX - rect.left;
+        const hoverPercent = Math.min(Math.max(0, offsetX / rect.width), 1);
+        const hoverPos = hoverPercent * 100;
+        const hoverTime = hoverPercent * duration;
+        
+        // Update DOM directly without triggering re-render
+        hoverLabelRef.current.style.left = `${hoverPos}%`;
+        hoverLabelRef.current.style.transform = `translateX(-${hoverPos}%)`;
+        hoverLabelRef.current.textContent = formatTime(hoverTime);
+    }
+
+    const percent = duration ? (currentTime / duration) * 100 : 0;
+
+    return (
+        <div className={`seek-bar-cont ${mode}`}>
+            <div
+                className="progress-bar-wrapper"
+                ref={progressBarRef}
+                onMouseEnter={() => setIsHovered(selectedTrack !== -1)}
+                onMouseLeave={() => setIsHovered(false)}
+                onMouseMove={isHovered && selectedTrack !== -1 ? handleMouseMove : undefined}
+            >
+                {isHovered && selectedTrack !== -1 && (
+                    <>
+                        <div ref={currentLabelRef} className="seek-label current" style={{ left: `${percent}%`, transform: `translateX(-${percent}%)` }}>
+                            {formatTime(currentTime)}
+                        </div>
+                        <div ref={hoverLabelRef} className="seek-label hover" style={{ left: '0%', transform: 'translateX(0%)' }}>
+                            0:00
+                        </div>
+                    </>
+                )}
+                <input
+                    type="range"
+                    min="0"
+                    max={duration || 0}
+                    value={currentTime}
+                    onChange={handleSeek}
+                    className="seek-input"
+                    disabled={selectedTrack === -1}
+                    style={{ background: `linear-gradient(to right, white 0%, white ${percent}%, rgba(255,255,255,0.3) ${percent}%, rgba(255,255,255,0.3) 100%)` }}
+                />
+            </div>
+        </div>
     )
 }
 
@@ -404,25 +472,25 @@ export const ListInfoCard = ({ track, info }: { track: track, info: listInfo }) 
                     <h1 className="text lt-info-title-h1">
                         {
                             info.type === "playlist"
-                            ?   <span className="text pure">{info.name}</span>
-                            :   info.type === "album"
-                                ?   <Text textArray={track.album} />
-                                :   <Text textArray={track.artist} />
+                                ? <span className="text pure">{info.name}</span>
+                                : info.type === "album"
+                                    ? <Text textArray={track.album} />
+                                    : <Text textArray={track.artist} />
                         }
                     </h1>
                 </div>
                 {
                     info.type === "playlist"
-                    ?   info.creationDate
-                        ?   <div className="lt-info-stats">
+                        ? info.creationDate
+                            ? <div className="lt-info-stats">
                                 <span className="text pure">Created on {info.creationDate}</span>
                             </div>
-                        :   null
-                    :   info.type === "artist"
-                        ?   <div className="lt-info-stats">
+                            : null
+                        : info.type === "artist"
+                            ? <div className="lt-info-stats">
                                 <span className="text pure">{info.genre}</span>
                             </div>
-                        :   <div className="lt-info-stats">
+                            : <div className="lt-info-stats">
                                 <span className="text pure">{info.releaseDate}</span>
                                 <span className="cdot">·</span>
                                 <span className="text pure">{info.genre}</span>
@@ -436,65 +504,73 @@ export const ListInfoCard = ({ track, info }: { track: track, info: listInfo }) 
             </div>
             {
                 info?.imageSrc || track?.imageSrc
-                ?   <div className="lt-info-img-cont">
-                        <img className="lt-info-img" src={info.imageSrc??track.imageSrc} alt="list image" />
+                    ? <div className="lt-info-img-cont">
+                        <img className="lt-info-img" src={info.imageSrc ?? track.imageSrc} alt="list image" />
                     </div>
-                :   <div className="lt-info-art-placeholder-cont">
+                    : <div className="lt-info-art-placeholder-cont">
                         <div className="lt-info-placeholder">
                             <span>
                                 <CgMusicNote className="lt-info-placeholder-icon" />
                             </span>
                         </div>
                     </div>
-            }       
+            }
         </div>
     )
 }
 
-export const ListControls = ({ muted = false, playing = false, nextCallback, prevCallback, playCallback, muteCallback }: { track: track, muted?: boolean, playing?: boolean, noControls?: boolean, nextCallback?: () => void, prevCallback?: () => void, playCallback?: (play: boolean) => void, muteCallback?: (mute: boolean) => void }) => {
+export const ListControls = ({ muted = false, playing = false, nextCallback, prevCallback, playCallback, muteCallback, showSeek = false }: { track: track, muted?: boolean, playing?: boolean, noControls?: boolean, nextCallback?: () => void, prevCallback?: () => void, playCallback?: (play: boolean) => void, muteCallback?: (mute: boolean) => void, showSeek?: boolean }) => {
     return (
-        <div className="controller-panel">
-            <button className="btn mute-btn btn-primary" onClick={() => muteCallback && muteCallback(!muted)}>
-                {
-                    muted 
-                    ?   <HiMiniSpeakerXMark className="action-icon mute-icon" />
-                    :   <HiMiniSpeakerWave className="action-icon unmute-icon" />
-                }   
-            </button>
-            <button className="btn back-btn btn-primary" onClick={prevCallback}>
-                <RiSkipBackMiniFill className="action-icon prev-icon" />
-            </button>
-            <button className="btn forward-btn btn-primary" onClick={nextCallback}>
-                <RiSkipForwardMiniFill className="action-icon next-icon" />
-            </button>
-            <button className="btn play-btn" onClick={() => playCallback && playCallback(!playing)}>
-                {
-                    playing 
-                    ?   <HiOutlinePauseCircle className="action-icon pause-icon" />
-                    :   <HiPlayCircle className="action-icon play-icon" />
-                }
-            </button>
+        <div className={`controller-panel ${showSeek ? 'with-seek' : ''}`}>
+            <div className="controls-buttons">
+                <button className="btn mute-btn btn-primary" onClick={() => muteCallback && muteCallback(!muted)}>
+                    {
+                        muted
+                            ? <HiMiniSpeakerXMark className="action-icon mute-icon" />
+                            : <HiMiniSpeakerWave className="action-icon unmute-icon" />
+                    }
+                </button>
+                <button className="btn back-btn btn-primary" onClick={prevCallback}>
+                    <RiSkipBackMiniFill className="action-icon prev-icon" />
+                </button>
+                <button className="btn forward-btn btn-primary" onClick={nextCallback}>
+                    <RiSkipForwardMiniFill className="action-icon next-icon" />
+                </button>
+                <button className="btn play-btn" onClick={() => playCallback && playCallback(!playing)}>
+                    {
+                        playing
+                            ? <HiOutlinePauseCircle className="action-icon pause-icon" />
+                            : <HiPlayCircle className="action-icon play-icon" />
+                    }
+                </button>
+            </div>
+            {showSeek && <SeekBar mode="controls" />}
         </div>
     )
 }
 
 export const ListHeader = ({ info = placeholderListInfo, track, muted = false, playing = false, noControls = false, snapTo = "large", nextCallback, prevCallback, playCallback, muteCallback, children }: { info: listInfo, track: track, muted?: boolean, playing?: boolean, noControls?: boolean, snapTo?: string, nextCallback?: () => void, prevCallback?: () => void, playCallback?: (play: boolean) => void, muteCallback?: (mute: boolean) => void, children?: React.ReactNode }) => {
     const height = snapTo === "tiny" ? "92px" : (snapTo === "small" ? "11.65rem" : (snapTo === "medium" ? "16rem" : (snapTo === "large" ? "21.35rem" : snapTo)));
+    const isTiny = snapTo === "tiny" || snapTo === "tinyplayer";
     return (
         <div className="list-header" style={{ maxHeight: height, height: height }}>
             {
-                children 
-                ?   <div className="lh-children-cont">
+                children
+                    ? <div className="lh-children-cont">
                         {children}
                     </div>
-                :   <div className="lh-children-cont lh-listinfocard-cont">
+                    : <div className="lh-children-cont lh-listinfocard-cont">
                         <ListInfoCard track={track} info={info} />
                     </div>
             }
             {
                 noControls
-                ?   null
-                :   <ListControls track={track} muted={muted} playing={playing} nextCallback={nextCallback} prevCallback={prevCallback} playCallback={playCallback} muteCallback={muteCallback} />
+                    ? null
+                    : <>
+                        <ListControls track={track} muted={muted} playing={playing} nextCallback={nextCallback} prevCallback={prevCallback} playCallback={playCallback} muteCallback={muteCallback} showSeek={isTiny} />
+                        <SeekBar mode="mini" />
+                        <SeekBar mode="header-bottom" />
+                    </>
             }
         </div>
     );
@@ -524,15 +600,15 @@ const Track = ({ track, trackNumber, selected = false, playIcon = true, onClick 
             <div className="track-number">
                 {
                     selected
-                    ?   playIcon
-                        ?   <HiMiniPlay className="action-icon sel" />
-                        :   <HiMiniPause className="action-icon sel" />
-                    :   trackNumber
-                        ?   <>
+                        ? playIcon
+                            ? <HiMiniPlay className="action-icon sel" />
+                            : <HiMiniPause className="action-icon sel" />
+                        : trackNumber
+                            ? <>
                                 <span className="text number list-number">{trackNumber}</span>
                                 <HiMiniPlay className="action-icon" />
                             </>
-                        :   <HiMiniPlay className="action-icon" />
+                            : <HiMiniPlay className="action-icon" />
                 }
             </div>
             <div className="info-cont">
@@ -565,12 +641,13 @@ const Track = ({ track, trackNumber, selected = false, playIcon = true, onClick 
 }
 
 // TODO: Make tracks and listInfo mandatory props
-export const ListPlayer = ({ tracks = testTracks, listInfo = testListInfo, prevBufferTime = 1500, playerMode, noControls = false, noHeader = false, loop = false, continueOn=false, kbdShortcuts=false, playCallback, pauseCallback, muteCallback, children }: { tracks?: track[], listInfo?: listInfo, prevBufferTime?: number, playerMode?: string, noControls?: boolean, noHeader?: boolean, loop?: boolean, continueOn?: boolean, kbdShortcuts?: boolean, playCallback?: (trackNumber: number, resume: boolean) => void, pauseCallback?: () => void, muteCallback?: (mute: boolean) => void, children?: React.ReactNode }) => {
+export const ListPlayer = ({ tracks = testTracks, listInfo = testListInfo, prevBufferTime = 1500, playerMode, noControls = false, noHeader = false, loop = false, continueOn = false, kbdShortcuts = false, playCallback, pauseCallback, muteCallback, children }: { tracks?: track[], listInfo?: listInfo, prevBufferTime?: number, playerMode?: string, noControls?: boolean, noHeader?: boolean, loop?: boolean, continueOn?: boolean, kbdShortcuts?: boolean, playCallback?: (trackNumber: number, resume: boolean) => void, pauseCallback?: () => void, muteCallback?: (mute: boolean) => void, children?: React.ReactNode }) => {
     const [timerTriggerFlag, setTimerTriggerFlag] = useState(false);
 
     const { selectedTrack, setSelectedTrack, isPlaying, setIsPlaying, isMuted, setIsMuted } = useContext(ListPlayerContext);
 
     const listBodyRef = useRef<HTMLDivElement>(null);
+    const listPlayerRef = useRef<HTMLDivElement>(null);
     const allowPrevious = useRef(true);
     const allowScrollIntoView = useRef(true);
 
@@ -608,31 +685,35 @@ export const ListPlayer = ({ tracks = testTracks, listInfo = testListInfo, prevB
     const handleTrackClick = (event: React.MouseEvent<HTMLDivElement>, index: number) => {
         //Ignore clicks on links inside the track
         if (event.target instanceof HTMLAnchorElement) return;
-        
-        index === selectedTrack 
-        ?   playPause(!isPlaying) 
-        :   allowScrollIntoView.current = false, setSelectedTrack(index);
+
+        index === selectedTrack
+            ? playPause(!isPlaying)
+            : allowScrollIntoView.current = false, setSelectedTrack(index);
     }
 
     const handlePreviousClick = () => {
-        allowPrevious.current || !isPlaying 
-        ?   (!loop)
-            ?   selectedTrack === 0 
-                ?   null
-                :   setSelectedTrack(selectedTrack - 1)
-            :   setSelectedTrack((selectedTrack - 1 + tracks.length) % tracks.length) 
-        :   play(false)
+        allowPrevious.current || !isPlaying
+            ? (!loop)
+                ? selectedTrack === 0
+                    ? null
+                    : setSelectedTrack(selectedTrack - 1)
+                : setSelectedTrack((selectedTrack - 1 + tracks.length) % tracks.length)
+            : play(false)
     }
 
     const handleNextClick = () => {
         (!loop) && selectedTrack >= tracks.length - 1
-        ?   continueOn
-            ?   setSelectedTrack((selectedTrack + 1))
-            :   null
-        :   setSelectedTrack((selectedTrack + 1) % tracks.length)
+            ? continueOn
+                ? setSelectedTrack((selectedTrack + 1))
+                : null
+            : setSelectedTrack((selectedTrack + 1) % tracks.length)
     }
 
     const scrollTrackIntoView = (index: number) => {
+        // Don't scroll if player height is less than 110px to prevent header from being pushed up
+        if (listPlayerRef.current && listPlayerRef.current.offsetHeight < 110) {
+            return;
+        }
         const track = listBodyRef.current?.children[index] as HTMLDivElement | null;
         track?.scrollIntoView({ behavior: "smooth", block: "center" });
     }
@@ -678,13 +759,13 @@ export const ListPlayer = ({ tracks = testTracks, listInfo = testListInfo, prevB
 
     return (
         <>
-            <div className="list-player" style={playerMode === "tinyplayer" ? {maxHeight: "92px", maxWidth: "315px"} : (playerMode === "miniplayer" ? {maxHeight: "92px", maxWidth: "100%"} : {maxHeight: "100%", maxWidth: "100%"}) }>
+            <div ref={listPlayerRef} className="list-player" data-mode={playerMode} style={playerMode === "tinyplayer" ? { maxHeight: "92px", maxWidth: "315px" } : (playerMode === "miniplayer" ? { maxHeight: "92px", maxWidth: "100%" } : { maxHeight: "100%", maxWidth: "100%" })}>
                 {
                     noHeader
-                        ?   null
-                        :   <ListHeader info={listInfo} track={tracks[selectedTrack === -1 ? 0 : selectedTrack]} snapTo={playerMode === "tiny" ? "tiny" : (playerMode === "small" ? "small" : (playerMode === "medium" ? "medium" : (playerMode === "large" ? "large" : (playerMode === undefined ? undefined : playerMode)))) } noControls={noControls} muted={isMuted} playing={isPlaying} muteCallback={mute} playCallback={playPause} nextCallback={handleNextClick} prevCallback={handlePreviousClick}>
-                                {children}
-                            </ListHeader>
+                        ? null
+                        : <ListHeader info={listInfo} track={tracks[selectedTrack === -1 ? 0 : selectedTrack]} snapTo={playerMode === "tiny" ? "tiny" : (playerMode === "small" ? "small" : (playerMode === "medium" ? "medium" : (playerMode === "large" ? "large" : (playerMode === undefined ? undefined : playerMode))))} noControls={noControls} muted={isMuted} playing={isPlaying} muteCallback={mute} playCallback={playPause} nextCallback={handleNextClick} prevCallback={handlePreviousClick}>
+                            {children}
+                        </ListHeader>
                 }
                 <div ref={listBodyRef} className="list-body">
                     {
